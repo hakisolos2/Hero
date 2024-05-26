@@ -1,8 +1,8 @@
 {
     "name": "hotaro-md",
-    "description": "Creative WhatsApp bot based on X-Asena written in Baileys Javascript.",
+    "description": "Creative WhatsApp bot based on X-Asena written in Baileys Javascript to make experience on WhatsApp more fun.",
     "repository" : "https://github.com/anonphoenix007/Hotaro-Md",
-    "logo": "https://ibb.co/1n3714C",
+    "logo": "https://telegra.ph/file/0691935a017b74bc2e49b.jpg",
     "keywords": ["Hotaro-md", "Hotaro", "Anime bot", "Whatsapp"],
     "success_url": "/",
     "stack": "container",
