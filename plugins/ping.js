@@ -30,8 +30,8 @@ command(
     const start = new Date().getTime();
     let stping = await message.reply(message.jid, "```☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬\n  Pinging!```");
     const end = new Date().getTime();
-    return await message.edit(
-      "*ʟᴀᴛᴇɴᴄʏ:* " + (end - start) + " *ms*", message.jid, stping.key
+    return await message.edit(message.jid,
+      "*ʟᴀᴛᴇɴᴄʏ:* " + (end - start) + " *ms*", stping.key
     );
   }
 );
