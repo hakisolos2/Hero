@@ -1,5 +1,5 @@
 const { command, isPrivate } = require("../lib");
-const prefi = require("../config");
+const config = require("../config");
 const process = require("process")
 const { OWNER_NAME, BOT_NAME } = require("../config");
 const { hostname } = require("os");
@@ -121,10 +121,26 @@ command(
     type: "user",
   },
   async (message, match, m) => {
+      const prefix = config.HANDLER;
+      let heder = `
+╭════════════════ ⪩
+┃  〘 *☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬* 〙
+╰════════════════ ⪨
+╭════════════════ ⪩
+┃   *Oᴡɴᴇʀ : ${OWNER_NAME}
+┃   *Time  : ${time}*
+┃   *Dᴀᴛᴇ : ${date}*
+┃   *Oᴡɴᴇʀ : ${global.OwnerName}*
+┃   *Pʟᴜɢɪɴꜱ : ${plugins.commands.length}*
+┃   *Pʀᴇꜰɪx : ${prefix}*
+┃   *Rᴜɴᴛɪᴍᴇ : ${runtime(process.uptime())}*
+╰════════════════ ⪨
+  By : Tᴀɪʀᴀ Mᴀᴋɪɴᴏ
+`;
     let data = {
       jid: message.jid,
       button: [
-        {
+        /*{
           type: "list",
           params: {
             title: "Button 1",
@@ -142,12 +158,12 @@ command(
               },
             ],
           },
-        },
+        },*/
         {
           type: "reply",
           params: {
-            display_text: "MENU",
-            id: "/menu",
+            display_text: "MENU 📃",
+            id: `${prefix}list`,
           },
         },
         {
@@ -184,7 +200,7 @@ command(
         text: "By : Tᴀɪʀᴀ Mᴀᴋɪɴᴏ",
       },
       body: {
-        text: "Interactive Menu",
+        text: heder,
       },
     };
     return await message.sendMessage(message.jid, data, {}, "interactive");
