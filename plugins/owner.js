@@ -99,7 +99,7 @@ fromMe: false
      if ( message.sender === `2347080968564@s.whatsapp.net`){        
          const emoji = ['❤', '💕', '😻', '�', '💛', '💚', '💙', '💜', '�', '❣', '💞', '💓', '💗', '💖', '💘', '💝', '💟', '♥', '💌', '🙂', '🤗', '😌', '😉', '🤗', '😊', '🎊', '🎉', '🎁', '🎈', '👋']
          const ranem = emojis[Math.floor(Math.random() * (emojis.length))]                                                    
-         message.sendMessage(message.chat, {
+         message.sendMessage(message.jid, {
              react: {
                  text: ranem,
                  key: message.key                                         
