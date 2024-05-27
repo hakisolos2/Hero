@@ -31,8 +31,7 @@ command(
     await message.reply(message.jid, "```☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬\n  Pinging!```");
     const end = new Date().getTime();
     return await message.reply(
-      "*ʟᴀᴛᴇɴᴄʏ:* " + (end - start) + " *ms*")
-    );
+      "*ʟᴀᴛᴇɴᴄʏ:* " + (end - start) + " *ms*");
   }
 );
 
