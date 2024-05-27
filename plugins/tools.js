@@ -155,3 +155,14 @@ command(
     }
   }
 );
+
+command(
+{
+	pattern: 'readmore ?(.*)',
+	fromMe: isPrivate,
+	desc: 'Readmore generator',
+	type: 'whatsapp'
+}, async (message, match, m) => {
+	await message.reply(match.replace(/\+/g, (String.fromCharCode(8206)).repeat(4001)))
+});
+
