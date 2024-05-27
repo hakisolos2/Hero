@@ -3,6 +3,7 @@ const config = require("../config");
 const process = require("process")
 const { OWNER_NAME, BOT_NAME } = require("../config");
 const { hostname } = require("os");
+const plugins = require("../lib/plugins");
 
 function runtime(seconds) {
     seconds = Number(seconds);
