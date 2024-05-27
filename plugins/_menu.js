@@ -5,6 +5,7 @@ const { OWNER_NAME, BOT_NAME } = require("../config");
 const { hostname } = require("os");
 const translate = require('@vitalets/google-translate-api');
 const acrcloud = require("acrcloud");
+const fs = require("fs");
 const acr = new acrcloud({
   host: "identify-eu-west-1.acrcloud.com",
   access_key: process.env.ACR_A,
