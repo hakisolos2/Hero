@@ -112,8 +112,6 @@ function runtime(seconds) {
   }
 );*/
 
-const { command, isPrivate } = require("../lib");
-
 command(
   {
     pattern: "menu",
