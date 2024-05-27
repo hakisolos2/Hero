@@ -122,7 +122,7 @@ command(
     type: "user",
   },
   async (message, match, m) => {
-      const prefix = config.HANDLER;
+      const prefix = config.HANDLERS;
       let [date, time] = new Date()
         .toLocaleString("en-IN", { timeZone: "Africa/Lagos" })
         .split(",");
@@ -134,12 +134,11 @@ command(
 ┃   *Oᴡɴᴇʀ : ${OWNER_NAME}
 ┃   *Time  : ${time}*
 ┃   *Dᴀᴛᴇ : ${date}*
-┃   *Oᴡɴᴇʀ : ${global.OwnerName}*
 ┃   *Pʟᴜɢɪɴꜱ : ${plugins.commands.length}*
+┃   *MODE : ${config.WORK_TYPE}*
 ┃   *Pʀᴇꜰɪx : ${prefix}*
 ┃   *Rᴜɴᴛɪᴍᴇ : ${runtime(process.uptime())}*
 ╰════════════════ ⪨
-  By : Tᴀɪʀᴀ Mᴀᴋɪɴᴏ
 `;
     let data = {
       jid: message.jid,
