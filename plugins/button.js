@@ -1,30 +1,63 @@
 const { command, isPrivate } = require("../lib");
+const prefi = require("../config");
+const process = require("process")
+const { OWNER_NAME, BOT_NAME } = require("../config");
+const { hostname } = require("os");
 
-/*command(
+function runtime(seconds) {
+    seconds = Number(seconds);
+    var d = Math.floor(seconds / (3600 * 24));
+    var h = Math.floor(seconds % (3600 * 24) / 3600);
+    var m = Math.floor(seconds % 3600 / 60);
+    var s = Math.floor(seconds % 60);
+    var dDisplay = d > 0 ? d + (d == 1 ? " day, " : " days, ") : "";
+    var hDisplay = h > 0 ? h + (h == 1 ? " hr, " : " hrs, ") : "";
+    var mDisplay = m > 0 ? m + (m == 1 ? " min, " : " mins, ") : "";
+    var sDisplay = s > 0 ? s + (s == 1 ? " sec" : " secs") : "";
+    return dDisplay + hDisplay + mDisplay + sDisplay;
+}
+
+
+command(
   {
-    pattern: "button",
-    fromMe: true,
-    desc: "send a button message",
-    usage: "#button",
-    type: "message",
+    pattern: "menu",
+    fromMe: isPrivate,
+    desc: "send command list.",
+    usage: "menu",
+    type: "user",
   },
   async (message, match, m) => {
+    let heder = `
+╭════════════════ ⪩
+┃  〘 *☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬* 〙
+╰════════════════ ⪨
+╭════════════════ ⪩
+┃   *Oᴡɴᴇʀ : ${OWNER_NAME}
+┃   *Time  : ${time}*
+┃   *Dᴀᴛᴇ : ${date}*
+┃   *Oᴡɴᴇʀ : ${global.OwnerName}*
+┃   *Pʟᴜɢɪɴꜱ : ${plugins.commands.length}*
+┃   *Pʀᴇꜰɪx : ${prefix}*
+┃   *Rᴜɴᴛɪᴍᴇ : ${runtime(process.uptime())}*
+╰════════════════ ⪨
+  By : Tᴀɪʀᴀ Mᴀᴋɪɴᴏ
+`;
     let data = {
       jid: message.jid,
       button: [
         {
           type: "list",
           params: {
-            title: "Button 1",
+            title: "Menu 📃",
             sections: [
               {
-                title: "Button 1",
+                title: "Menu 📃",
                 rows: [
                   {
                     header: "title",
-                    title: "Button 1",
-                    description: "Description 1",
-                    id: "#menu",
+                    title: "Menu 📃",
+                    description: "Command list",
+                    id: "/menu",
                   },
                 ],
               },
@@ -34,57 +67,47 @@ const { command, isPrivate } = require("../lib");
         {
           type: "reply",
           params: {
-            display_text: "MENU",
-            id: "#menu",
+            display_text: "Menu 📃",
+            id: "/menu",
           },
         },
         {
           type: "url",
           params: {
-            display_text: "Neeraj-x0",
-            url: "https://www.neerajx0.xyz/",
-            merchant_url: "https://www.neerajx0.xyz/",
+            display_text: "Repo",
+            url: "https://github.com/anonphoenix007/HOTARO-MD",
+            merchant_url: "https://github.com/anonphoenix007/HOTARO-MD",
           },
         },
         {
-          type: "address",
+          type: "url",
           params: {
-            display_text: "Address",
-            id: "message",
+            display_text: "Author",
+            url: "https://wa.me/2347080968564",
+            merchant_url: "https://wa.me/2347080968564",
           },
         },
         {
-          type: "location",
-          params: {},
-        },
-        {
-          type: "copy",
+          type: "url",
           params: {
-            display_text: "copy",
-            id: "123456789",
-            copy_code: "message",
+            display_text: "Channel",
+            url: "https://whatsapp.com/channel/0029VaY0Zq32P59piTo5rg0K",
+            merchant_url: "https://whatsapp.com/channel/0029VaY0Zq32P59piTo5rg0K",
           },
-        },
-        {
-          type: "call",
-          params: {
-            display_text: "Call",
-            phone_number: "123456789",
-          },
-        },
+        }
       ],
       header: {
-        title: "X-Asena",
-        subtitle: "WhatsApp Bot",
+        title: "☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬",
+        subtitle: "ʜᴏᴛᴀʀᴏ-ᴍᴅ WABOT",
         hasMediaAttachment: false,
       },
       footer: {
-        text: "Interactive Native Flow Message",
+        text: "☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬",
       },
       body: {
-        text: "Interactive Message",
+        text: "☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬",
       },
     };
-    return await message.sendMessage(message.jid, data, {}, "interactive");
+    return await message.sendMessage(message.jid, {text: heder }, data, {}, "interactive");
   }
-);*/
+);
