@@ -18,7 +18,7 @@ function runtime(seconds) {
 }
 
 
-command(
+/*command(
   {
     pattern: "menu",
     fromMe: isPrivate,
@@ -54,7 +54,7 @@ command(
                 title: "Menu 📃",
                 rows: [
                   {
-                    header: "title",
+                    header: heder,
                     title: "Menu 📃",
                     description: "Command list",
                     id: "/menu",
@@ -109,5 +109,86 @@ command(
       },
     };
     return await message.sendMessage(message.jid, {text: heder }, data, {}, "interactive");
+  }
+);*/
+
+const { command, isPrivate } = require("../lib");
+
+command(
+  {
+    pattern: "menu",
+    fromMe: isPrivate,
+    desc: "send a button message menu",
+    usage: ".button",
+    type: "user",
+  },
+  async (message, match, m) => {
+    let data = {
+      jid: message.jid,
+      button: [
+        {
+          type: "list",
+          params: {
+            title: "Button 1",
+            sections: [
+              {
+                title: "Button 1",
+                rows: [
+                  {
+                    header: "title",
+                    title: "Button 1",
+                    description: "Description 1",
+                    id: "/menu",
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        {
+          type: "reply",
+          params: {
+            display_text: "MENU",
+            id: "/menu",
+          },
+        },
+        {
+          type: "url",
+          params: {
+            display_text: "Repo",
+            url: "https://github.com/anonphoenix007/HOTARO-MD",
+            merchant_url: "https://github.com/anonphoenix007/HOTARO-MD",
+          },
+        },
+        {
+          type: "url",
+          params: {
+            display_text: "Channel",
+            url: "https://whatsapp.com/channel/0029VaY0Zq32P59piTo5rg0K",
+            merchant_url: "https://whatsapp.com/channel/0029VaY0Zq32P59piTo5rg0K", 
+          },
+        },
+        {
+          type: "url",
+          params: {
+            display_text: "Author",
+            url: "https://wa.me/2347080968564",
+            merchant_url: "https://wa.me/2347080968564", 
+          }, 
+        },
+      ],
+      header: {
+        title: "☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬",
+        subtitle: "ʜᴏᴛᴀʀᴏ-ᴍᴅ By Tᴀɪʀᴀ Mᴀᴋɪɴᴏ",
+        hasMediaAttachment: false,
+      },
+      footer: {
+        text: "By : Tᴀɪʀᴀ Mᴀᴋɪɴᴏ",
+      },
+      body: {
+        text: "Interactive Menu",
+      },
+    };
+    return await message.sendMessage(message.jid, data, {}, "interactive");
   }
 );
