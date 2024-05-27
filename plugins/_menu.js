@@ -60,7 +60,7 @@ command(
 );
 command(
   {
-    pattern: "menu",
+    pattern: "list",
     fromMe: isPrivate,
     desc: "Show All Commands",
     dontAddCommandList: true,
