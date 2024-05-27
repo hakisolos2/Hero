@@ -130,64 +130,7 @@ Description: ${i.desc}\`\`\``);
         //menu += `\n`;
         menu += `╰════════════════ ⪨`;
       });
-       let msg = generateWAMessageFromContent(message.jid, {
-  viewOnceMessage: {
-    message: {
-        "messageContextInfo": {
-          "deviceListMetadata": {},
-          "deviceListMetadataVersion": 2
-        },
-        interactiveMessage: proto.Message.InteractiveMessage.create({
-          body: proto.Message.InteractiveMessage.Body.create({
-            text: "☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬"
-          }),
-          footer: proto.Message.InteractiveMessage.Footer.create({
-            text: "☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬"
-          }),
-          header: proto.Message.InteractiveMessage.Header.create({
-            title: menu,
-            subtitle: "ʜᴏᴛᴀʀᴏ-ᴍᴅ wabot",
-            hasMediaAttachment: false
-          }),
-          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
-            buttons: [
-              {
-                 "name": "cta_url",
-                 "buttonParamsJson": "{\"display_text\":\"Telegram🔥\",\"url\":\"https://t.me/taira_makino\",\"merchant_url\":\"https://www.google.com\"}"
-              },
-              {
-                 "name": "cta_url",
-                 "buttonParamsJson": "{\"display_text\":\"Bot Repo 🤖\",\"url\":\"https://github.com/anonphoenix007/HOTARO-MD\",\"merchant_url\":\"https://www.google.com\"}"
-              },
-              {
-                 "name": "cta_url",
-                 "buttonParamsJson": "{\"display_text\":\"Channel 📍\",\"url\":\"https://whatsapp.com/channel/0029VaY0Zq32P59piTo5rg0K\",\"merchant_url\":\"https://www.google.com\"}"
-              },              
-              {
-  "name": "quick_reply",
-  "buttonParamsJson": `{"display_text":"Bot Menu📃","id":"${config.HANDLERS}list"}`
-   },
-              {
-                "name": "quick_reply",
-                "buttonParamsJson": `{"display_text":"Owner 📍","id":"${config.HANDLERS}owner"}`
-              },
-              {
-                "name": "quick_reply",
-                "buttonParamsJson": `{"display_text":"Script 📃","id":"${config.HANDLERS}script"}`
-              }
-           ],
-          })
-        })
-    }
-  }
-}, {})
-
-return await message.client.relayMessage(message.key.remoteJid, message.message, {
-  messageId: message.key.id
-})
-      
-
-      //return await message.sendMessage(message.jid,menu);
+      return await message.sendMessage(message.jid,menu);
     }
   }
 );
