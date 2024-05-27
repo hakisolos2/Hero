@@ -122,6 +122,9 @@ command(
   },
   async (message, match, m) => {
       const prefix = config.HANDLER;
+      let [date, time] = new Date()
+        .toLocaleString("en-IN", { timeZone: "Africa/Lagos" })
+        .split(",");
       let heder = `
 ╭════════════════ ⪩
 ┃  〘 *☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬* 〙
