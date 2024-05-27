@@ -1,4 +1,4 @@
-const { command, isPrivate } = require("../lib");
+const { command, isPrivate, clockString, pm2Uptime } = require("../lib"); 
 const config = require("../config");
 const process = require("process")
 const { OWNER_NAME, BOT_NAME } = require("../config");
