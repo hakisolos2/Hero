@@ -143,4 +143,27 @@ command(
 }, async (message, match) => {
 	await message.clearChat(message.jid)
 	await message.reply('_Chat Cleared_')
+});
+
+command(
+{
+	pattern: 'archive$',
+	fromMe: true,
+	desc: 'archive whatsapp chat',
+	type: 'whatsapp'
+}, async (message, match) => {
+	await message.archiveChat(message.jid, true)
+	await message.reply('_Chat Archived_')
 })
+
+command(
+{
+	pattern: 'unarchive$',
+	fromMe: true,
+	desc: 'unarchive whatsapp chat',
+	type: 'whatsapp'
+}, async (message, match) => {
+	await message.archiveChat(message.jid, true)
+	await message.reply('_Chat Unarchived_')
+})
+
