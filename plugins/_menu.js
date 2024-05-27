@@ -85,20 +85,9 @@ Description: ${i.desc}\`\`\``);
         .toLocaleString("en-IN", { timeZone: "Africa/Lagos" })
         .split(",");
       let menu = `
-╭════════════════ ⪩
-┃〘 *☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬* 〙
-╰════════════════ ⪨
-╭════════════════ ⪩
-┃   *Oᴡɴᴇʀ : ${OWNER_NAME}
-┃   *Time  : ${time}*
-┃   *Dᴀᴛᴇ : ${date}*
-┃   *Oᴡɴᴇʀ : ${global.OwnerName}*
-┃   *Pʟᴜɢɪɴꜱ : ${plugins.commands.length}*
-┃   *Pʀᴇꜰɪx : ${prefix}*
-┃   *Rᴜɴᴛɪᴍᴇ : ${runtime(process.uptime())}*
-╰════════════════ ⪨
+     ☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬
    *BY : Tᴀɪʀᴀ Mᴀᴋɪɴᴏ*
- ✧✧✧✧✧✧✧✧✧✧✧✧✧
+✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧
  ${readmore}
       `;
       let cmnd = [];
