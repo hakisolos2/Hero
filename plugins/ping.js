@@ -28,7 +28,7 @@ command(
   },
   async (message, match) => {
     const start = new Date().getTime();
-    await message.reply(message.jid, "```☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬\n  Pinging!```");
+    await message.reply("```☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬\n  Pinging!```");
     const end = new Date().getTime();
     return await message.reply(
       "*ʟᴀᴛᴇɴᴄʏ:* " + (end - start) + " *ms*");
