@@ -28,7 +28,7 @@ command(
     pattern: "vv",
     fromMe: true,
     desc: "Forwards The View once messsage",
-    type: "tool",
+    type: "tools",
   },
   async (message, match, m) => {
     let buff = await m.quoted.download();
@@ -36,7 +36,7 @@ command(
   }
 );
 
-command(
+/*command(
 {
     pattern: 'vv2 ?(.*)',
     fromMe: true,
@@ -47,7 +47,7 @@ command(
     m.quoted.message = m.quoted.message.viewOnceMessage?.message || m.quoted.message.viewOnceMessageV2?.message;
     m.quoted.message[Object.keys(m.quoted.message)[0]].viewOnce = false
     await m.forwardMessage(m.jid,m.quoted)
-    }));
+    }));*/
 // STATUS SAVER ( MAKE fromMe: false TO USE AS PUBLIC )
 command(
   {
@@ -55,7 +55,7 @@ command(
     fromMe: false,
     desc: "Save or Give Status Updates",
     dontAddCommandList: true,
-    type: "Tool",
+    type: "Tools",
   },
   async (message, match, m) => {
     try {
@@ -81,7 +81,7 @@ command(
     pattern: "qr",
     fromMe: isPrivate,
     desc: "Read/Write Qr.",
-    type: "Tool",
+    type: "Tools",
   },
   async (message, match, m) => {
     match = match || message.reply_message.text;
@@ -113,7 +113,7 @@ command(
     pattern: "bitly",
     fromMe: isPrivate,
     desc: "Converts Url to bitly",
-    type: "tool",
+    type: "tools",
   },
   async (message, match) => {
     match = match || message.reply_message.text;
@@ -125,44 +125,22 @@ command(
 );
 
 command(
-  {
-    pattern: "lyric",
-    fromMe: isPrivate,
-    desc: "Searches for lyrics based on the format: song;artist",
-    type: "tools",
-  },
-  async (message, match) => {
-    const [song, artist] = match.split(";").map((item) => item.trim());
-    if (!song || !artist) {
-      await message.reply("Search with this format: \n\t_lyric song;artist_");
-    } else {
-      try {
-        const data = await getLyrics(song, artist);
-        if (data) {
-          return await message.reply(
-            `☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬\n\n*Artist:* ${data.artist_name}\n*Song:* ${
-              data.song
-            }\n*Lyrics:*\n${data.lyrics.trim()}`
-          );
-        } else {
-          return await message.reply(
-            "No lyrics found for this song by this artist."
-          );
-        }
-      } catch (error) {
-        return await message.reply("An error occurred while fetching lyrics.");
-      }
-    }
-  }
-);
-
-command(
 {
 	pattern: 'readmore ?(.*)',
 	fromMe: isPrivate,
 	desc: 'Readmore generator',
 	type: 'whatsapp'
 }, async (message, match, m) => {
-	await message.reply(match.replace(/\+/g, (String.fromCharCode(8206)).repeat(4001)))
+	if (!match) { return message.reply(`Quote a message`)};
+	await message.reply(m.replace(/\+/g, (String.fromCharCode(8206)).repeat(4001)))
 });
-
+command(
+{
+	pattern: 'clear$',
+	fromMe: true,
+	desc: 'delete whatsapp chat',
+	type: 'whatsapp'
+}, async (message, match) => {
+	await message.clearChat(message.jid)
+	await message.reply('_Chat Cleared_')
+})
