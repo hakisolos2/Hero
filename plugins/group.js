@@ -186,8 +186,8 @@ command(
 	desc: 'Join invite link.',
 	type: 'group'
 }, async (message, match, m, client) => {
-	match = match[1] || message.reply_message.text
-	if (!match) return await message.reply('_Enter the group link!_')
+	match = match || message.reply_message.text
+	if (!match) return await message.reply('_Quote/Reply to the group link!_')
 	if (!isUrl(match) && !match.includes('whatsapp.com')) return await message.reply('*Invalid Link!*')
 	let result = match.split('https://chat.whatsapp.com/')[1]
 	let res = await client.groupAcceptInvite(result)
