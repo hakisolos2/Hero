@@ -87,7 +87,6 @@ Description: ${i.desc}\`\`\``);
       let menu = `
      ☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬
    *BY : Tᴀɪʀᴀ Mᴀᴋɪɴᴏ*
-✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧
  ${readmore}
       `;
       let cmnd = [];
@@ -265,9 +264,9 @@ command(
     fromMe: true,
     desc: 'edit messages',
     type: "tools"
-}, (async (message, match) => {
+}, (async (message, match, m, client) => {
     if (match[1] && message.reply_message?.text && message.quoted.key.fromMe){                  
-    await message.edit(match[1],message.jid,message.quoted.key);
+    await client.edit(match[1],message.jid,message.quoted.key);
 }                                                                           
 }));
 
