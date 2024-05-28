@@ -218,3 +218,85 @@ command(
     await message.reply("Group left successfully")
     return await client.groupLeave(message.jid);
 })
+
+command(
+{
+  pattern: "requests",
+  fromMe: true,
+  desc: "List all group join requests",
+  type: "group",
+}, async (message, args, m, client) => {
+  try {
+    if (!message.isGroup) { return message.reply("Group command."); }
+    if (!isAdmin) { return await message.reply("I'm Not Admin In This Group,promote me to use the command!")}
+    const requests = await client.groupRequestParticipantsList(message.jid);
+    if (!requests || requests.length === 0) {
+      return await message.reply("No Join Requests Yet.");
+    }
+
+    let requestList = "List of User that requested to join\n\n";
+    for (const request of requests) {
+      requestList += `➫ @${request.jid.split("@")[0]}\n`;
+    }
+
+    return await message.reply(requestList, { mentions: requests.map(r => r.jid) });
+  } catch (error) {
+    await console.error(`${error}\n\ncommand: requests`, error);
+  }
+});
+
+command(
+{
+  cmdname: "acceptall",
+  fromMe: true,
+  desc: "Accept all requests to join!",
+  type: "group"
+}, async (message, arg, m, client) => {
+  try {
+    if (!message.isGroup) { return message.reply(`This command is for group chats only`)}
+    if (!isAdmin) { return await message.reply(`I need to be admin to use this command`)}
+    const requests = await client.groupRequestParticipantsList(message.jid);
+    if (!requests || requests.length === 0) { return await message.reply("No One Send Join Requests Yet.")}
+    let acceptedList = "List of accepted users\n\n";
+    for (const request of requests) {
+      try {
+        await client.groupRequestParticipantsUpdate(message.from, [request.jid], "approve");
+        acceptedList += `➫ @${request.jid.split("@")[0]}\n`;
+      } catch (error) {
+        // handle individual acceptance error silently
+      }
+    }
+
+    await message.reply(acceptedList, { mentions: requests.map(r => r.jid) });
+  } catch (error) {
+    await console.error(`${error}\n\ncommand: acceptall`, error);
+  }
+});
+
+command(
+{
+  cmdname: "rejectall",
+  fromMe: true,
+  desc: "Reject all users requests to join!",
+  type: "group"
+}, async (message, args, m, client) => {
+try {
+    if (!message.isGroup) { return message.reply(`This command is for group chats only`)}
+    if (!isAdmin) { return await message.reply(`I need to be admin to use this command`)}
+    const requests = await client.groupRequestParticipantsList(message.jid);
+    if (!requests || requests.length === 0) { return await message.reply("No One Send Join Requests Yet.")}
+    let rejectedList = "List of rejected users\n\n";
+    for (const request of requests) {
+      try {
+         await client.groupRequestParticipantsUpdate(message.from, [request.jid], "reject");
+         rejectedList += `➫ @${request.jid.split("@")[0]}\n`;
+      } catch (error) {
+        // handle individual rejection error silently
+      }
+    }
+
+    await message.reply(rejectedList, { mentions: requests.map(r => r.jid) });
+  } catch (error) {
+    await console.error(`${error}\n\ncommand: rejectall`, error);
+  }
+});
