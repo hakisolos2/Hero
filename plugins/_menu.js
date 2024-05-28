@@ -165,10 +165,10 @@ command(
     desc: "text to speech",
     type: 'tools'
 }, async (message, match) => {
-    var match = match || message.reply_message.jid
+    var match = match || message.reply_message.text
     if (!match) return await message.reply("Reply to a text");
-    if (!fs.existsSync("./temp/tts")) {
-        fs.mkdirSync("./temp/tts")
+    if (!fs.existsSync("./temp")) {
+        fs.mkdirSync("./temp")
     }
     query = match.replace("tts","")
     var lng = '0en';
@@ -230,33 +230,33 @@ command(
     usage: '.requests approve all or reject all',
     desc: "Get list of pending join requests",
     type: "group"
-}, async (message, match) => {                                                                                                          if (!message.isGroup) return await message.sendReply("This is a group command")
+}, async (message, match, m, client) => {                                                                                                          if (!message.isGroup) return await message.sendReply("This is a group command")
     //let adminAccesValidated = ADMIN_ACCESS ? await isAdmin(message,message.sender) : false;
     //if (message.fromOwner || adminAccesValidated) {                                                                                      var admin = await isAdmin(message);
-    if (!admin) return await message.sendReply("Only group admin can use this command.")
-    let approvalList = await message.client.groupRequestParticipantsList(message.jid)
-    if (!approvalList.length) return await message.sendReply("_No pending requests!_")
+    if (!isAdmin) return await message.reply("Only group admin can use this command.")
+    let approvalList = await client.groupRequestParticipantsList(message.jid)
+    if (!approvalList.length) return await message.reply("_No pending requests!_")
     let approvalJids = approvalList.map(x=>x.jid)
     if (match[1]){
         match = match[1].toLowerCase()
         switch(match){
             case 'approve all':{
-                await message.sendReply(`_Approving ${approvalJids.length} participants._`)
+                await message.reply(`_Approving ${approvalJids.length} participants._`)
                 for (let x of approvalJids){
-                    await message.client.groupRequestParticipantsUpdate(message.jid,[x],"approve")
+                    await client.groupRequestParticipantsUpdate(message.jid,[x],"approve")
                     await delay(900)
                 }
                 break;
             }                                                                                                                                    case 'reject all':{
-                await message.sendReply(`_Rejecting ${approvalJids.length} participants._`)
+                await message.reply(`_Rejecting ${approvalJids.length} participants._`)
                 for (let x of approvalJids){
-                    await message.client.groupRequestParticipantsUpdate(message.jid,[x],"reject")
+                    await client.groupRequestParticipantsUpdate(message.jid,[x],"reject")
                     await delay(900)
                 }
                 break;
             }
             default:{
-                return await message.sendReply("_Invalid input_\n_Eg: .requests approve all_\n_.requests reject all_")
+                return await message.reply("_Invalid input_\n_Eg: .requests approve all_\n_.requests reject all_")
             }
         }
         return;
@@ -273,18 +273,6 @@ command(
     }
     return await message.sendMessage(message.jid,{text:msg,mentions:approvalJids},{quoted:message.data})
                              });
-
-command(
-{
-    pattern: 'left',
-    fromMe: true,
-    desc: "Leave GC",
-    type: "group"
-}, async (message, match) => {
-    if (!message.isGroup) return await message.reply("_Dumbo,left is a group command,lol!_")
-    await message.reply("Group left successfully")
-    return await message.groupLeave(message.jid);
-})
 
 command(
 {
