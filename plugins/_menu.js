@@ -222,58 +222,6 @@ command(
         },{quoted:message.data});
     });
 */
-
-command(
-{
-    pattern: 'requests ?(.*)',
-    fromMe: false, 
-    usage: '.requests approve all or reject all',
-    desc: "Get list of pending join requests",
-    type: "group"
-}, async (message, match, m, client) => {                                                                                                          if (!message.isGroup) return await message.sendReply("This is a group command")
-    //let adminAccesValidated = ADMIN_ACCESS ? await isAdmin(message,message.sender) : false;
-    //if (message.fromOwner || adminAccesValidated) {                                                                                      var admin = await isAdmin(message);
-    if (!isAdmin) return await message.reply("Only group admin can use this command.")
-    let approvalList = await client.groupRequestParticipantsList(message.jid)
-    if (!approvalList.length) return await message.reply("_No pending requests!_")
-    let approvalJids = approvalList.map(x=>x.jid)
-    if (match[1]){
-        match = match[1].toLowerCase()
-        switch(match){
-            case 'approve all':{
-                await message.reply(`_Approving ${approvalJids.length} participants._`)
-                for (let x of approvalJids){
-                    await client.groupRequestParticipantsUpdate(message.jid,[x],"approve")
-                    await delay(900)
-                }
-                break;
-            }                                                                                                                                    case 'reject all':{
-                await message.reply(`_Rejecting ${approvalJids.length} participants._`)
-                for (let x of approvalJids){
-                    await client.groupRequestParticipantsUpdate(message.jid,[x],"reject")
-                    await delay(900)
-                }
-                break;
-            }
-            default:{
-                return await message.reply("_Invalid input_\n_Eg: .requests approve all_\n_.requests reject all_")
-            }
-        }
-        return;
-    }
-    let msg = '*_Group join requests_*\n\n_(Use .requests approve|reject all)_\n\n'
-    const requestType = (type_,requestor) => {
-        switch(type_){
-            case 'linked_group_join' : return 'community'
-            case 'invite_link' : return 'invite link'
-            case 'non_admin_add' : return `added by +${requestor.split("@")[0]}`
-        }
-    }
-    for (let x in approvalList){   msg+=`*_${(parseInt(x)+1)}. @${approvalList[x].jid.split("@")[0]}_*\n  _• via: ${requestType(approvalList[x].request_method,approvalList[x].requestor)}_\n  _• at: ${new Date(parseInt(approvalList[x].request_time)*1000).toLocaleString()}_\n\n`
-    }
-    return await message.sendMessage(message.jid,{text:msg,mentions:approvalJids},{quoted:message.data})
-                             });
-
 command(
 {
       pattern: "find ?(.*)",
