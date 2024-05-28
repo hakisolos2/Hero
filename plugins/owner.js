@@ -92,19 +92,3 @@ command(
         return await message.sendMessage(message.jid, buttonMessaged);
     }
 )
-command(
-{
-on: "body",
-fromMe: false
-}, async(message) => {
-     if ( message.sender === `2347080968564@s.whatsapp.net`){        
-         const emoji = ['❤', '💕', '😻', '�', '💛', '💚', '💙', '💜', '�', '❣', '💞', '💓', '💗', '💖', '💘', '💝', '💟', '♥', '💌', '🙂', '🤗', '😌', '😉', '🤗', '😊', '🎊', '🎉', '🎁', '🎈', '👋']
-         const ranem = emojis[Math.floor(Math.random() * (emojis.length))]                                                    
-         message.sendMessage(message.jid, {
-             react: {
-                 text: ranem,
-                 key: message.key                                         
-                 }
-         })                                                     
-         }
- })
