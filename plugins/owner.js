@@ -39,7 +39,7 @@ command(
     pattern: "owner",
     fromMe: isPrivate,
     desc: "Send owner number",
-    type: "user"
+    type: "misc"
 }, async (message) => {
    const vnum = config.OWNER_NUNBER;
    const vcard = 'BEGIN:VCARD\n'
@@ -61,7 +61,8 @@ command(
         pattern: "repo",
         fromMe: isPrivate,                                                                                                      desc: "Sends info about repo.",
         category: "general",
-        filename: __filename,                                                                                                            },
+        type: 'misc'
+        },
     async(message) => {
         let { data } = await axios.get('https://api.github.com/repos/anonphoenix007/HOTARO-MD')
         let cap = `> ʜᴏᴛᴀʀᴏ-ᴍᴅ repository stats
