@@ -178,94 +178,32 @@ command(
   }
 );
 
-/*command(
-  {
-    pattern: "tagall",
-    fromMe: true,
-    desc: "mention all users in group",
-    type: "group",
-  },
-  async (message, match) => {
-    if (!message.isGroup) return;
-    const { participants } = await message.client.groupMetadata(message.jid);
-    let teks = "";
-    for (let mem of participants) {
-      teks += ` @${mem.id.split("@")[0]}\n`;
-    }
-    message.sendMessage(message.jid,teks.trim(), {
-      mentions: participants.map((a) => a.id),
-    });
-  }
-);*/
-
-/*command(
-  {
-    pattern: "tag",
-    fromMe: true,
-    desc: "mention all users in group",
-    type: "group",
-  },
-  async (message, match) => {
-    console.log("match")
-    match = match || message.reply_message.text;
-    if (!match) return message.reply("_Enter or reply to a text to tag_");
-    if (!message.isGroup) return;
-    const { participants } = await message.client.groupMetadata(message.jid);
-    message.sendMessage(message.jid,match, {
-      mentions: participants.map((a) => a.id),
-    });
-  }
-);*/
-
+    //---------------------------------------------------------------------------
+command(
+{
+	pattern: 'join ?(.*)',
+	fromMe: true,
+	desc: 'Join invite link.',
+	type: 'group'
+}, async (message, match, client) => {
+	match = getUrl(match || message.reply_message.text)
+	if (!match) return await message.reply('_Enter the group link!_')
+	if (!isUrl(match) && !match.includes('whatsapp.com')) return await message.reply('*Invalid Link!*')
+	let result = match.split('https://chat.whatsapp.com/')[1]
+	let res = await message.groupAcceptInvite(result)
+	if (!res) return await message.reply('_Invalid Group Link!_')
+	if (res) return await message.reply('_Group Joined!_')
+})
 
 command(
 {
-        pattern: "tagall",
-        fromMe: true,
-        desc: "Tags every person of group.",
-        type: "group"
-    },async(message, match ) => {                                                                                                                 
-    if (!message.isGroup) return await message.reply("tag is a group command lol");
-        const groupMetadata = await message.groupMetadata(message.jid);
-        const participants = message.isGroup ? await groupMetadata.participants : "";
-        //const groupAdmins = await getAdmin(Void, citel)
-        //const isAdmins = citel.isGroup ? groupAdmins.includes(citel.sender) : false;
-        //if (!isAdmins) return citel.reply(tlang().admin);
-
-        let textt = `
-══✪〖 *ʜᴏᴛᴀʀᴏ-ᴍᴅ TagAll* 〗✪══
-
-➲ *Message :* ${match ? match : "blank"}\n\n
-➲ *Author:* ${config.OWNER_NAME} ♕
-➲ *Bot_Name:* *☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬*
-`
-        for (let mem of participants) {
-            textt += `🎊 @${mem.id.split("@")[0]}\n`;
-             }
-        await message.sendMessage(message.jid, {
-            text: textt,
-            mentions: participants.map((a) => a.id),
-        });
-    }
-)
-
-
-/*command(
-{
-            pattern: "tag",                                                                                                                                                                   
-            fromMe: true,
-            desc: "Tags every participants in a group chat.",
-            type: "group",
-        }, async(message, match, m) => {
-        if(!m && !m.quoted) return message.reply('*`Example : .tag Hi <Text here>`*')
-            if(!m){text = m.quoted.text;}
-            if (!message.isGroup) {return message.reply("This is only a group command"); }
-            const groupMetadata = message.isGroup ? await message.groupMetadata(message.jid);
-            const participants = message.isGroup ? await groupMetadata.participants : "";
-            //const groupAdmins = await getAdmin(Void, citel)
-            //const isAdmins = citel.isGroup ? groupAdmins.includes(citel.sender) : false;
-            //if (!isAdmins && !isCreator) return citel.reply(tlang().admin);
-            message.sendMessage(message.jid, { text: text, mentions: participants.map((a) => a.id)});
-        }
-    )*/
-    //---------------------------------------------------------------------------
+	pattern: 'invite ?(.*)',
+	fromMe: true,
+	desc: "Provides the group's invitation link.",
+	type: 'group'
+}, async (m, text, client) => {
+	if (!m.isGroup) return await m.reply('_This command is only for group chats_')
+	if (!isAdmin) return await m.reply("I'm not an admin")
+	const response = await m.groupInviteCode(m.chat)
+	await m.reply(`https://chat.whatsapp.com/${response}`)
+})
