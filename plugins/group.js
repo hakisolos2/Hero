@@ -169,9 +169,9 @@ command(
       return await message.reply("_This command is for groups only._");
     let { participants } = await client.groupMetadata(message.jid);
     let participant = participants.map((u) => u.id);
-    let str = "╭──〔 *Group Jids* 〕\n";
+    let str = "╭──〔 *Participants Jid* 〕\n";
     participant.forEach((result) => {
-      str += `➫ *${result}*\n`;
+      str += `┃ ➫ *${result}*\n`;
     });
     str += `╰──────────────`;
     message.reply(str);
@@ -185,12 +185,12 @@ command(
 	fromMe: true,
 	desc: 'Join invite link.',
 	type: 'group'
-}, async (message, match, client) => {
-	match = getUrl(match || message.reply_message.text)
+}, async (message, match, m, client) => {
+	match = match || message.reply_message.text)
 	if (!match) return await message.reply('_Enter the group link!_')
 	if (!isUrl(match) && !match.includes('whatsapp.com')) return await message.reply('*Invalid Link!*')
 	let result = match.split('https://chat.whatsapp.com/')[1]
-	let res = await message.groupAcceptInvite(result)
+	let res = await client.groupAcceptInvite(result)
 	if (!res) return await message.reply('_Invalid Group Link!_')
 	if (res) return await message.reply('_Group Joined!_')
 })
@@ -201,9 +201,9 @@ command(
 	fromMe: true,
 	desc: "Provides the group's invitation link.",
 	type: 'group'
-}, async (m, text, client) => {
-	if (!m.isGroup) return await m.reply('_This command is only for group chats_')
-	if (!isAdmin) return await m.reply("I'm not an admin")
-	const response = await m.groupInviteCode(m.chat)
-	await m.reply(`https://chat.whatsapp.com/${response}`)
+}, async (message, match, m, client) => {
+	if (!message.isGroup) return await message.reply('_This command is only for group chats_')
+	if (!isAdmin) return await message.reply("I'm not an admin")
+	const response = await client.groupInviteCode(message.jid)
+	await message.reply(`https://chat.whatsapp.com/${response}`)
 })
