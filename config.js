@@ -44,6 +44,7 @@ module.exports = {
   HEROKU: toBool(process.env.HEROKU) || false,
   BOT_NAME: process.env.BOT_NAME || "☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬",
   PROCESSNAME: process.env.PROCESSNAME || "HOTARO-MD",
+  PRESENCE: process.env.PRESENCE || "recording",//composing ,recording ,available ,unavailable
   WORK_TYPE: process.env.WORK_TYPE || "private",
   SESSION_URL: process.env.SESSION_URL || "",
   DELETED_LOG: toBool(process.env.DELETED_LOG) || false,
