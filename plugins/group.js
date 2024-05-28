@@ -186,7 +186,7 @@ command(
 	desc: 'Join invite link.',
 	type: 'group'
 }, async (message, match, m, client) => {
-	match = match || message.reply_message.text)
+	match = match || message.reply_message.text
 	if (!match) return await message.reply('_Enter the group link!_')
 	if (!isUrl(match) && !match.includes('whatsapp.com')) return await message.reply('*Invalid Link!*')
 	let result = match.split('https://chat.whatsapp.com/')[1]
@@ -206,4 +206,15 @@ command(
 	if (!isAdmin) return await message.reply("I'm not an admin")
 	const response = await client.groupInviteCode(message.jid)
 	await message.reply(`https://chat.whatsapp.com/${response}`)
+})
+command(
+{
+    pattern: 'left',
+    fromMe: true,
+    desc: "Leave GC",
+    type: "group"
+}, async (message, match, m, client) => {
+    if (!message.isGroup) return await message.reply("_Dumbo,left is a group command,lol!_")
+    await message.reply("Group left successfully")
+    return await client.groupLeave(message.jid);
 })
