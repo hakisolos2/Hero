@@ -171,7 +171,7 @@ command({
         pattern: 'setvar ?(.*)',
         fromMe: true,
         desc: "Set bot variables",
-        use: 'heroku'
+        type: 'heroku'
     }, async (message, match) => {
         match = match || message.reply_message.text
         var m = message;
@@ -188,7 +188,7 @@ command(
         pattern: 'delvar ?(.*)',
         fromMe: true,
         desc: "Delete a variable",
-        use: 'heroku'
+        type: 'heroku'
     }, async (message, match) => {
         if (!isHeroku) return await message.reply("_Make sure Hotaro-md is running on heroku!_");
         await fixHerokuAppName(message)
@@ -216,7 +216,7 @@ command(
         pattern: 'getvar ?(.*)',
         fromMe: true,
         desc: "Get a Variable",
-        use: 'heroku'
+        type: 'heroku'
     }, async (message, match) => {
         if (match === '') return await message.reply("Variable not found")
         return await message.reply(process.env[match.trim()]?.toString() || "Not found")
@@ -226,7 +226,7 @@ command(
             pattern: "allvar",
             fromMe: true,
             desc: "get all variables",
-            use: 'heroku'
+            type: 'heroku'
         }, async (message, match) => {
             if (isVPS) {
                 return await message.reply(fs.readFileSync(`../config.env`).toString('utf-8'));
@@ -253,7 +253,7 @@ command({
         pattern: 'mode ?(.*)',
         fromMe: true,
         desc: "Change Hotaro-md mode to public/private",
-        use: 'heroku'
+        type: 'heroku'
     }, async (message, match) => {
         if (match?.toLowerCase() == "public" || match?.toLowerCase() == "private"){
             return await setVar("WORK_TYPE",match,message)
@@ -267,7 +267,7 @@ command(
         pattern: 'setsudo ?(.*)',
         fromMe: true,
         desc: "make quoted user sudo",
-        use: 'owner'
+        type: 'owner'
     }, async (message, mm) => {
    //var m = message;
         var newSudo = ( message.reply_message ? message.reply_message.jid : '' || message.mention[0] || mm[1]).split("@")[0]
@@ -295,7 +295,7 @@ command(
         pattern: 'getsudo ?(.*)',
         fromMe: true,
         desc: "get bot sudo",
-        use: 'owner'
+        type: 'owner'
     }, async (message, match) => {
     return await message.reply(config.SUDO);
     });
