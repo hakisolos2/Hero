@@ -30,6 +30,7 @@ module.exports = {
   AUTH_TOKEN: "",
   HANDLERS: process.env.HANDLER === "false" || process.env.HANDLER === "null" ? "^" : "^[/]",
   RMBG_KEY: process.env.RMBG_KEY || false,
+  PLATFORM:isHeroku?"Heroku":isRailway?"Railway":isKoyeb?"Koyeb":"Other server",isHeroku,isKoyeb,isVPS,isRailway,
   BRANCH: "main",
   WARN_COUNT: 3,
   PACKNAME: process.env.PACKNAME || "",
