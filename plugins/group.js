@@ -320,7 +320,7 @@ if (/\bhttps?:\/\/\S+/gi.test(message.message)){
         await message.reply("_Link is not allowed!_")};
         if (config.ANTI_LINK_ACTION === "kick" ) { await message.client.groupParticipantsUpdate(message.jid, [usr], "remove");
 	await message.reply("_Link is not allowed here_")}
-}}}});
+}}}}});
 
 command(
 {
