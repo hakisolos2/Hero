@@ -42,7 +42,7 @@ command(
     type: "misc"
 }, async (message) => {
    let vnum = config.OWNER_NUNBER;
-   const name = config.OWNER_NAME;
+   let name = config.OWNER_NAME;
    const vcard = 'BEGIN:VCARD\n' +
                  'VERSION:3.0\n' +
                  `FN:` + name + `\n` +
