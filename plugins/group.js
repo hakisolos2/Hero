@@ -322,7 +322,7 @@ if (/\bhttps?:\/\/\S+/gi.test(message.message)){
 	await message.reply("_Link is not allowed here_")}
 }}}}});*/
 
-command(
+/*command(
 {
 	on: "aonline",
 	fromMe: true,
@@ -349,4 +349,4 @@ command(
 }, async (message, match) => {
    let text = `☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬, By:Tᴀɪʀᴀ Mᴀᴋɪɴᴏ, Alive:${uptimeFormatted}, RAM: ${formatp(os.totalmem() - os.freemem())} / ${formatp(os.totalmem())}`
    await message.client.updateProfileStatus(text, randomTime)
-});
+});*/
