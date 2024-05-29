@@ -320,3 +320,13 @@ if (/\bhttps?:\/\/\S+/gi.test(message.message)){
         if (config.ANTI_LINK_ACTION === "kick" ) { await message.client.groupParticipantsUpdate(message.jid, [usr], "remove");
 	await message.reply("_Link is not allowed here_")}
 }}}});
+
+command(
+{
+	on: "aonline",
+	fromMe: true,
+	desc: "always online"
+}, async (message, match) => {
+	let status = config.PRESENCE
+	await message.client.sendPresenceUpdate(status, message.jid)
+});
