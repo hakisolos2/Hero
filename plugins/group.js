@@ -12,8 +12,9 @@
 
 
 const { command, isPrivate } = require("../lib/");
-const { isAdmin, parsedJid } = require("../lib");
+const { isAdmins, formatp, parsedJid } = require("../lib");
 const config = require("../config");
+const os = require("os")
 command(
   {
     pattern: "add",
@@ -330,3 +331,21 @@ command(
 	let status = config.PRESENCE
 	await message.client.sendPresenceUpdate(status, message.jid)
 });
+const formatTime = (seconds) => {
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const secs = seconds % 60;
+      return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    };
+      const uptimeInSeconds = Math.floor(process.uptime());
+      const uptimeFormatted = formatTime(uptimeInSeconds);
+      const randomTime = Math.floor(Math.random() * 300000) + 1000; //
+
+command(
+{
+	on: "about",
+	fromMe: true,
+	desc: "upd status"
+}, async (message, match) => {
+   let text = `☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬, By:Tᴀɪʀᴀ Mᴀᴋɪɴᴏ, Alive:${uptimeFormatted}, RAM: ${formatp(os.totalmem() - os.freemem())} / ${formatp(os.totalmem())}`
+   await message.client.updateProfileStatus(text, randomTime)
