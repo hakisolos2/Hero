@@ -300,3 +300,23 @@ try {
     await console.error(`${error}\n\ncommand: rejectall`, error);
   }
 });
+command(
+{
+	on: "alink",
+	fromMe: false,
+	desc: "alink listener"
+}, async (message, match) => {
+if (config.ANTI_LINK === "on") {
+if (/\bhttps?:\/\/\S+/gi.test(message.message)){
+        if (jids.includes(message.jid)) {
+        var antilinkWarn = process.env.ANTI_LINK_ACTION?.split(',') || []
+        if (antilinkWarn.includes(message.jid)) return;
+        //let allowed = (process.env.ALLOWED_LINKS || "gist,instagram,youtu").split(",");
+        let linksInMsg = message.message.match(/\bhttps?:\/\/\S+/gi)
+        if (!(await isAdmin(message,message.sender))) {
+        var usr = message.sender.includes(":") ? message.sender.split(":")[0]+"@s.whatsapp.net" : message.sender
+        if (config.ANTI_LINK_ACTION === "delete") { await message.sendMessage(message.jid, { delete: message.data.key })
+        await message.reply("_Link is not allowed!_")};
+        if (config.ANTI_LINK_ACTION === "kick" ) { await message.client.groupParticipantsUpdate(message.jid, [usr], "remove");
+	await message.reply("_Link is not allowed here_")}
+}}}});
