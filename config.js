@@ -9,10 +9,10 @@
  Github : https://github.com/anonphoenix007
  WhatsApp : https://wa.me/2347080968564
 */                                                                                                                                                    
-const isVPS = !(__dirname.startsWith("/rgnk") || __dirname.startsWith("/skl"));
-const isHeroku = __dirname.startsWith("/skl");
-const isKoyeb = __dirname.startsWith("/rgnk");
-const isRailway = __dirname.startsWith("/railway");
+const isVPS = !(__dirname.startsWith("/HOTARO-MD") || __dirname.startsWith("/skl"));
+const isHeroku = __dirname.startsWith("/HOTARO-MD");
+const isKoyeb = __dirname.startsWith("/HOTARO-MD");
+const isRailway = __dirname.startsWith("/HOTARO-MD");
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 //require("dotenv").config();
