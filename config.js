@@ -12,7 +12,8 @@
 
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
-require("dotenv").config();
+//require("dotenv").config();
+if (fs.existsSync('config.env')) require('dotenv').config({ path: './config.env' });
 
 const toBool = (x) => x === "true";
 
