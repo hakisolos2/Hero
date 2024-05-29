@@ -15,6 +15,47 @@ const { command, isPrivate } = require("../lib/");
 const { isAdmins, formatp, parsedJid } = require("../lib");
 const config = require("../config");
 const os = require("os")
+
+command(
+  {
+    pattern: "tag",
+    fromMe: true,
+    desc: "mention all users in group",
+    type: "group",
+  },
+  async (message, match) => {
+    console.log("match")
+    match = match || message.reply_message.text;
+    if (!match) return message.reply("_Enter or reply to a text to tag_");
+    if (!message.isGroup) { return await message.reply("This is a group command")
+    const { participants } = await message.client.groupMetadata(message.jid);
+    message.sendMessage(message.jid,match, {
+      mentions: participants.map((a) => a.id),
+    });
+  }
+);
+
+command(
+  {
+    pattern: "tagall",
+    fromMe: true,
+    desc: "mention all users in group",
+    type: "group",
+  },
+  async (message, match) => {
+    if (!message.isGroup) { return await message.reply("This is only a group command")
+    const { participants } = await message.client.groupMetadata(message.jid);
+    let teks = "";
+    for (let mem of participants) {
+      teks = `_*ʜᴏᴛᴀʀᴏ-ᴍᴅ Tagall*_\n\n`
+      teks += `➫ @${mem.id.split("@")[0]}\n`;
+    }
+    message.sendMessage(message.jid,teks.trim(), {
+      mentions: participants.map((a) => a.id),
+    });
+  }
+);
+	
 command(
   {
     pattern: "add",
