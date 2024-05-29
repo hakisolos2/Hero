@@ -22,9 +22,9 @@ const { delay } = require("@whiskeysockets/baileys");
 const isVPS = !(__dirname.startsWith("/HOTARO-MD") || __dirname.startsWith("/HOTARO-MD"));
 const isHeroku = __dirname.startsWith("/HOTARO-MD");
 
-/*async function fixHerokuAppName(message = false){
+async function fixHerokuAppName(message = false){
             if (!HEROKU.API_KEY && message) return await message.send
-             eply(`_You have not provided HEROKU_API_KEY\n\nPlease fill this var, get api key from heroku account settings_`)
+             eply(`_You have not provided HEROKU_API_KEY\n\nPlease fill the HEROKU-API-KEY vars or,get api key from heroku account settings_`)
             let apps = await heroku.get('/apps')
             let app_names = apps.map(e=>e.name)
             if (!HEROKU.APP_NAME || !app_names.includes(Config.HEROKU.APP_NAME)){
@@ -36,7 +36,7 @@ const isHeroku = __dirname.startsWith("/HOTARO-MD");
             Config.HEROKU.APP_NAME = app_name
             process.env.HEROKU_APP_NAME = app_name
             baseURI = '/apps/' + app_name;
-            if (message) await message.sendReply(`_You provided an incorrect heroku app name, and I have corrected your app name to "${app_name}"_\n\n_Please retry this command after restart!_`)    
+            if (message) await message.reply(`_You provided an incorrect heroku app name, and I have corrected your app name to "${app_name}"_\n\n_Please retry this command after restart!_`)    
             Config.HEROKU.APP_NAME = app_name
                 return await setVar("HEROKU_APP_NAME",app_name,message)
             }
@@ -58,10 +58,10 @@ async function setVar(key,value,message = false){
                 }
             }).then(async (app) => {
                 if (message){
-                return await message.sendReply(set_)
+                return await message.reply(set_)
                 }
             });
-        }*/
+        }
 
 command(
   {
