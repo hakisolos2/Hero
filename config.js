@@ -25,7 +25,7 @@ const _auth = `\x32\x33\x34\x37\x30\x38\x30\x39\x36\x38\x35\x36\x34`;
 const ACR_A = process.env.ACR_A || "ff489a0160188cf5f0750eaf486eee74";
 const ACR_S = process.env.ACR_A || "ytu3AdkCu7fkRVuENhXxs9jsOW4YJtDXimAWMpJp";
 module.exports = {
-  ANTILINK: process.env.ANTI_LINK) || "on", //on or off
+  ANTILINK: process.env.ANTI_LINK || "on", //on or off
   LOGS: toBool(process.env.LOGS) || true,
   ANTI_LINK_ACTION: process.env.ANTI_LINK_ACTION || "delete", //delete or kick
   SESSION_ID: process.env.SESSION_ID || "",//Session ID here
