@@ -21,6 +21,7 @@ const { secondsToDHMS } = require("../lib/functions");
 const { delay } = require("@whiskeysockets/baileys");
 const isVPS = !(__dirname.startsWith("/HOTARO-MD") || __dirname.startsWith("/HOTARO-MD"));
 const isHeroku = __dirname.startsWith("/HOTARO-MD");
+const { update } = require("../lib/koyeb");
 
 async function fixHerokuAppName(message = false){
             if (!HEROKU.API_KEY && message) return await message.send
@@ -62,7 +63,40 @@ async function setVar(key,value,message = false){
                 }
             });
         }
-
+if (isVPS){
+        try { 
+        var envFile = fs.readFileSync(`../config.env`,'utf-8')
+        const lines = envFile.trim().split('\n');
+        let found = false;
+        for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (line.startsWith(`${key}=`)) {
+            lines[i] = `${key}="${value}"`;
+            found = true;
+            break;
+        }
+        }
+        if (!found) {
+        lines.push(`${key}="${value}"`);
+        }
+fs.writeFileSync('./config.env', lines.join('\n'));
+        if (message){
+        await message.reply(set_)
+        }
+        if (key == "SESSION_ID"){
+        await require('fs-extra').removeSync('../lib/auth_info_baileys'); 
+        }
+        process.exit(0)    
+    } catch(e){
+        if (message) return await message.reply("_Unable to set var._\n"+e.message);
+        }
+        } 
+        if (__dirname.startsWith("/HOTARO-MD")) {
+            let set_res = await update(key,value)
+            if (set_res && message) return await message.reply(set_)
+            else throw "Error!"
+        }   
+         }
 command(
   {
     pattern: "restart",
