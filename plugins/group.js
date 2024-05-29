@@ -349,3 +349,4 @@ command(
 }, async (message, match) => {
    let text = `☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬, By:Tᴀɪʀᴀ Mᴀᴋɪɴᴏ, Alive:${uptimeFormatted}, RAM: ${formatp(os.totalmem() - os.freemem())} / ${formatp(os.totalmem())}`
    await message.client.updateProfileStatus(text, randomTime)
+});
