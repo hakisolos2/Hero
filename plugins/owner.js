@@ -47,7 +47,7 @@ command(
                  'VERSION:3.0\n' +
                  `FN:` + name + `\n` +
                  'ORG:ʜᴏᴛᴀʀᴏ-ᴍᴅ;\n' +          
-                 `TEL;type=CELL;type=VOICE;waid=` + vnum `:+` vnum `\n` +
+                 `TEL;type=CELL;type=VOICE;waid=` + vnum + `:+` + vnum + `\n` +
                  'END:VCARD'
    await message.sendMessage(
     message.jid,
