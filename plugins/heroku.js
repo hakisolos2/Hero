@@ -22,6 +22,7 @@ const { delay } = require("@whiskeysockets/baileys");
 const isVPS = !(__dirname.startsWith("/HOTARO-MD") || __dirname.startsWith("/HOTARO-MD"));
 const isHeroku = __dirname.startsWith("/HOTARO-MD");
 const { update } = require("../lib/koyeb");
+const config = require("../config");
 
 async function fixHerokuAppName(message = false){
             if (!HEROKU.API_KEY && message) return await message.send
@@ -79,7 +80,7 @@ if (isVPS){
         if (!found) {
         lines.push(`${key}="${value}"`);
         }
-fs.writeFileSync('./config.env', lines.join('\n'));
+fs.writeFileSync('../config.env', lines.join('\n'));
         if (message){
         await message.reply(set_)
         }
@@ -165,3 +166,155 @@ command(
     }
   }
 );
+
+command({
+        pattern: 'setvar ?(.*)',
+        fromMe: true,
+        desc: "Set bot variables",
+        use: 'heroku'
+    }, async (message, match) => {
+        match=match[1]
+        var m = message;
+        if (!match) return await message.reply("_Need a var!_\n_Usage: .setvar WORK_TYPE:public_")
+        let [key, ...valueArr] = match.split(':');
+        let value = valueArr.join(':');
+        config[key] = value
+        return await setVar(key,value,message)
+        
+    });
+
+command(
+ {
+        pattern: 'delvar ?(.*)',
+        fromMe: true,
+        desc: "Delete a variable",
+        use: 'heroku'
+    }, async (message, match) => {
+        if (!isHeroku) return await message.reply("_Make sure Hotaro-md is running on heroku!_");
+        await fixHerokuAppName(message)
+        if (match[1] === '') return await message.reply("Variable not found")
+        await heroku.get(baseURI + '/config-vars').then(async (vars) => {
+            key = match[1].trim();
+            for (vr in vars) {
+                if (key == vr) {
+                    await heroku.patch(baseURI + '/config-vars', {
+                        body: {
+                            [key]: null
+                        }
+                    });
+                    return await message.reply("Variable Deleted successfully")
+                }
+            }
+            await await message.reply("Variable not found")
+        }).catch(async (error) => {
+            await message.reply(error.message)
+        });
+
+    });
+ command(
+  {
+        pattern: 'getvar ?(.*)',
+        fromMe: true,
+        desc: "Get a Variable",
+        use: 'heroku'
+    }, async (message, match) => {
+        if (match[1] === '') return await message.reply("Variable not found")
+        return await message.reply(process.env[match[1].trim()]?.toString() || "Not found")
+   });
+ command(
+  {
+            pattern: "allvar",
+            fromMe: true,
+            desc: "get all variables",
+            use: 'heroku'
+        }, async (message, match) => {
+            if (isVPS) {
+                return await message.reply(fs.readFileSync(`../config.env`).toString('utf-8'));
+            }
+            if (!isHeroku) return await message.reply("_Make sure Hotaro-md is deployed on heroku!_");
+            await fixHerokuAppName(message)
+            let msg = "☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬" + "\n\n\n```"
+            await heroku
+                .get(baseURI + "/config-vars")
+                .then(async (keys) => {
+                    for (let key in keys) {
+                        msg += `${key} : ${keys[key]}\n\n`
+                    }
+                    return await message.reply(msg += '```')
+                })
+                .catch(async (error) => {
+                    await message.reply(error.message)
+                })
+
+        }
+    );
+
+command({
+        pattern: 'mode ?(.*)',
+        fromMe: true,
+        desc: "Change Hotaro-md mode to public/private",
+        use: 'heroku'
+    }, async (message, match) => {
+        if (match[1]?.toLowerCase() == "public" || match[1]?.toLowerCase() == "private"){
+            return await setVar("WORK_TYPE",match[1],message)
+        } else {
+            return await message.reply(`_*Mode manager*_\n_Current mode: ${config.WORK_TYPE}_\n_Usage .mode public/private_`)
+        }
+    });
+
+command(
+ {
+        pattern: 'setsudo ?(.*)',
+        fromMe: true,
+        desc: "make quoted user sudo",
+        use: 'owner'
+    }, async (message, mm) => {
+   var m = message;
+        var newSudo = ( message.reply_message ? message.reply_message.jid : '' || message.mention[0] || mm[1]).split("@")[0]
+if (!newSudo) return await m.sendReply("*you need to reply/mention/number*")
+const oldSudo = config.SUDO?.split(",")
+    var newSudo = ( message.reply_message ? message.reply_message.jid : '' || message.mention[0] || mm[1]).split("@")[0]
+    if (!newSudo) return await message.reply("*you need to reply/mention/number*")
+    newSudo = newSudo.replace(/[^0-9]/g, '');
+    if (!oldSudo.includes(newSudo)) {
+    oldSudo.push(newSudo)
+    var setSudo = oldSudo
+    setSudo = setSudo.map(x => {
+        if (typeof x === 'number') {
+          return x.toString();
+        } else {
+          return x.replace(/[^0-9]/g, '');
+        }
+      }).join(',')
+    await message.sendMessage(message.jid,{text:'_Successfully Added @'+newSudo+' as sudo_',mentions:[newSudo+"@s.whatsapp.net"]})
+    await setVar("SUDO",setSudo,m)
+    } else{ return await message.reply("_User is already a sudo_")}
+});
+command(
+ {
+        pattern: 'getsudo ?(.*)',
+        fromMe: true,
+        desc: "get bot sudo",
+        use: 'owner'
+    }, async (message, match) => {
+    return await message.reply(config.SUDO);
+    });
+command(
+ {
+         pattern: 'delsudo ?(.*)',
+         fromMe: true, 
+         desc: "Deletes sudo",
+         type: "owner"
+ }, async (message, mm) => { 
+    const oldSudo = config.SUDO?.split(",")
+    var newSudo = ( message.reply_message ? message.reply_message.jid : '' || message.mention[0] || mm[1]).split("@")[0]
+    if (!newSudo) return await message.reply("*you need to reply/mention/number*")
+    if (oldSudo.includes(newSudo)) {
+    oldSudo.push(newSudo)
+    var setSudo = oldSudo
+    setSudo = setSudo.filter(x=>x!==newSudo.replace(/[^0-9]/g, '')).join(',')
+    await message.sendMessage(message.jid,{text:'_Successfully Removed @'+newSudo+' from sudo!_',mentions:[newSudo+"@s.whatsapp.net"]})
+    await setVar("SUDO",setSudo,m)
+    } else { return await message.reply("_User is not a sudo_")
+};
+ });
