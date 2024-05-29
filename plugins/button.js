@@ -137,7 +137,6 @@ command(
 ┃   *Pʟᴜɢɪɴꜱ : ${plugins.commands.length}*
 ┃   *MODE : ${config.WORK_TYPE}*
 ┃   *Pʀᴇꜰɪx : ${prefix}*
-┃   *RAM:  ${formatp(os.totalmem() - os.freemem())} / ${formatp(os.totalmem())}*
 ┃   *Rᴜɴᴛɪᴍᴇ : ${runtime(process.uptime())}*
 ╰════════════════ ⪨
 `;
