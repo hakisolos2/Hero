@@ -19,6 +19,49 @@ const heroku = new Heroku({ token: Config.HEROKU_API_KEY });
 const baseURI = "/apps/" + Config.HEROKU_APP_NAME;
 const { secondsToDHMS } = require("../lib/functions");
 const { delay } = require("@whiskeysockets/baileys");
+const isVPS = !(__dirname.startsWith("/HOTARO-MD") || __dirname.startsWith("/HOTARO-MD"));
+const isHeroku = __dirname.startsWith("/HOTARO-MD");
+
+/*async function fixHerokuAppName(message = false){
+            if (!HEROKU.API_KEY && message) return await message.send
+             eply(`_You have not provided HEROKU_API_KEY\n\nPlease fill this var, get api key from heroku account settings_`)
+            let apps = await heroku.get('/apps')
+            let app_names = apps.map(e=>e.name)
+            if (!HEROKU.APP_NAME || !app_names.includes(Config.HEROKU.APP_NAME)){
+            function findGreatestNumber(e){let t=e[0];for(let n=1;n<e.length;n++)e[n]>t&&(t=e[n]);return t}
+            let times = apps.map(e=>new Date(e.updated_at).getTime())
+            let latest = findGreatestNumber(times)
+            let index = times.indexOf(latest)
+            let app_name = apps[index].name
+            Config.HEROKU.APP_NAME = app_name
+            process.env.HEROKU_APP_NAME = app_name
+            baseURI = '/apps/' + app_name;
+            if (message) await message.sendReply(`_You provided an incorrect heroku app name, and I have corrected your app name to "${app_name}"_\n\n_Please retry this command after restart!_`)    
+            Config.HEROKU.APP_NAME = app_name
+                return await setVar("HEROKU_APP_NAME",app_name,message)
+            }
+}
+
+async function setVar(key,value,message = false){
+        key = key.toUpperCase().trim()
+        value = value.trim()
+        let setvarAction = isHeroku ? "restarting" : isVPS ? "rebooting" : "redeploying";
+        var set_ = `_⚙ Successfully set ${key} to ${value}, {}.._`;
+        set_ = key == "ANTI_BOT" ? `AntiBot activated, bots will be automatically kicked, {}` : key == "ANTI_SPAM" ? `AntiSpam activated, spammers will be automatically kicked, {}` :key == "CHATBOT" ? `AI Chatbot turned ${value}, {}` : key == "MODE" ? `Mode switched to ${value}, {}`:set_;
+        set_ = set_.format(setvarAction)
+        let m = message;
+        if (isHeroku) {
+            await fixHerokuAppName(message)
+            await heroku.patch(baseURI + '/config-vars', {
+                body: {
+                    [key]: value
+                }
+            }).then(async (app) => {
+                if (message){
+                return await message.sendReply(set_)
+                }
+            });
+        }*/
 
 command(
   {
@@ -88,48 +131,3 @@ command(
     }
   }
 );
-
-/*command(
-  {
-    pattern: "dyno",
-    fromMe: true,
-    desc: "Show Quota info",
-    type: "heroku",
-  },
-  async (message) => {
-    if (!Config.HEROKU)
-      return await message.reply("You are not using Heroku as your server.");
-
-    if (Config.HEROKU_APP_NAME === "")
-      return await message.reply("Add `HEROKU_APP_NAME` env variable");
-    if (Config.HEROKU_API_KEY === "")
-      return await message.reply("Add `HEROKU_API_KEY env variable");
-
-    try {
-      heroku
-        .get("/account")
-        .then(async (account) => {
-          const url = `https://api.heroku.com/accounts/${account.id}/actions/get-quota`;
-          headers = {
-            "User-Agent": "Chrome/80.0.3987.149 Mobile Safari/537.36",
-            Authorization: "Bearer " + Config.HEROKU_API_KEY,
-            Accept: "application/vnd.heroku+json; version=3.account-quotas",
-          };
-          const res = await got(url, { headers });
-          const resp = JSON.parse(res.body);
-          const total_quota = Math.floor(resp.account_quota);
-          const quota_used = Math.floor(resp.quota_used);
-          const remaining = total_quota - quota_used;
-          const quota = `Total Quota : ${secondsToDHMS(total_quota)}
-Used  Quota : ${secondsToDHMS(quota_used)}
-Remaning    : ${secondsToDHMS(remaining)}`;
-          await message.reply("```" + quota + "```");
-        })
-        .catch(async (error) => {
-          return await message.reply(`HEROKU : ${error.body.message}`);
-        });
-    } catch (error) {
-      await message.reply(error);
-    }
-  }
-);*/
