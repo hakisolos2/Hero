@@ -28,7 +28,7 @@
         "description": "send status to users who reply.",
         "value": "true"
       },
-      "MODS": {
+      "SUDO": {
         "description": "bot Admin number here",
         "value": "23470809685xx"
       },
@@ -41,6 +41,11 @@
         "description": "Antilink true or false",
         "required": false,
         "value": "true"
+      },
+      "ANTI_LINK_ACTION": {
+        "description": "Antilink remove or delete.",
+        "required": false,
+        "value": "delete"
       },
       "HEROKU": {
         "description": "heroku or not.",
@@ -76,6 +81,11 @@
         "description": "Fill the value true if you want bot to read all messages.",
         "required": false,
         "value": "false"
+      },
+      "PRESENCE": {
+        "description": "composing | recording | available | unavailable.",
+        "required": false,
+        "value": "recording"
       },
       "HANDLER": {
         "description": "Enter your desired prefix for ʜᴏᴛᴀʀᴏ-ᴍᴅ",
