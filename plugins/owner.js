@@ -84,7 +84,7 @@ command(
                 externalAdReply: {
                     title: "☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬",
                     body: "ʜᴏᴛᴀʀᴏ-ᴍᴅ wabot",
-                    thumbnail: { url: "https://telegra.ph/file/0691935a017b74bc2e49b.jpg"},
+                    thumbnailUrl: { url: "https://telegra.ph/file/0691935a017b74bc2e49b.jpg"},
                     mediaType: 4,
                     mediaUrl: 'https://chat.whatsapp.com/EKdfDFDoi5C3ck88OmbJyk',
                     sourceUrl: `https://whatsapp.com/channel/0029VaY0Zq32P59piTo5rg0K`,
