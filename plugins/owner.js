@@ -53,7 +53,7 @@ command(
     message.jid,
     {
         contacts: {
-            displayName: vname,
+            displayName: name,
             contacts: [{ vcard }],
         }
     }
