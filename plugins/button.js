@@ -4,6 +4,7 @@ const process = require("process")
 const { OWNER_NAME, BOT_NAME } = require("../config");
 const { hostname } = require("os");
 const plugins = require("../lib/plugins");
+const os = require("os");
 function runtime(seconds) {
     seconds = Number(seconds);
     var d = Math.floor(seconds / (3600 * 24));
