@@ -41,7 +41,7 @@ command(
     desc: "Send owner number",
     type: "misc"
 }, async (message) => {
-   const vnum = config.OWNER_NUNBER;
+   let vnum = config.OWNER_NUNBER;
    const name = config.OWNER_NAME;
    const vcard = 'BEGIN:VCARD\n' +
                  'VERSION:3.0\n' +
