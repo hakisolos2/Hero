@@ -42,17 +42,19 @@ command(
     type: "misc"
 }, async (message) => {
    const vnum = config.OWNER_NUNBER;
-   const vcard = 'BEGIN:VCARD\n'
-            + 'VERSION:3.0\n'
-            + `FN:` + config.OWNER_NAME + `\n`
-            + 'ORG:ʜᴏᴛᴀʀᴏ-ᴍᴅ;\n'                                                        + `TEL;type=CELL;type=VOICE;waid=${vnum}:+${vnum}\n`
-            + 'END:VCARD'
+   const name = config.OWNER_NAME;
+   const vcard = 'BEGIN:VCARD\n' +
+                 'VERSION:3.0\n' +
+                 `FN:` + name + `\n` +
+                 'ORG:ʜᴏᴛᴀʀᴏ-ᴍᴅ;\n' +          
+                 `TEL;type=CELL;type=VOICE;waid=` + vnum `:+` vnum `\n` +
+                 'END:VCARD'
    await message.sendMessage(
     message.jid,
     {
         contacts: {
-            displayName: config.OWNER_NAME,
-            contacts: [{ vcard }]
+            displayName: vname,
+            contacts: [{ vcard }],
         }
     }
 )});
@@ -86,8 +88,8 @@ command(
                     mediaType: 4,
                     mediaUrl: 'https://chat.whatsapp.com/EKdfDFDoi5C3ck88OmbJyk',
                     sourceUrl: `https://whatsapp.com/channel/0029VaY0Zq32P59piTo5rg0K`,
-                },
-            },
+                }
+            }
         };
         return await message.sendMessage(message.jid, buttonMessaged);
     }
