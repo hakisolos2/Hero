@@ -325,7 +325,7 @@ if (/\bhttps?:\/\/\S+/gi.test(message.message)){
 /*command(
 {
 	on: "aonline",
-	fromMe: true,
+	fromMe: falsd,
 	desc: "always online"
 }, async (message, match) => {
 	let status = config.PRESENCE
@@ -344,7 +344,7 @@ const formatTime = (seconds) => {
 command(
 {
 	on: "about",
-	fromMe: true,
+	fromMe: false,
 	desc: "upd status"
 }, async (message, match) => {
    let text = `☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬, By:Tᴀɪʀᴀ Mᴀᴋɪɴᴏ, Alive:${uptimeFormatted}, RAM: ${formatp(os.totalmem() - os.freemem())} / ${formatp(os.totalmem())}`
