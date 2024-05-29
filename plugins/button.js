@@ -1,10 +1,9 @@
-const { command, isPrivate, clockString, pm2Uptime } = require("../lib"); 
+const { command, formatp, isPrivate, clockString, pm2Uptime } = require("../lib"); 
 const config = require("../config");
 const process = require("process")
 const { OWNER_NAME, BOT_NAME } = require("../config");
 const { hostname } = require("os");
 const plugins = require("../lib/plugins");
-
 function runtime(seconds) {
     seconds = Number(seconds);
     var d = Math.floor(seconds / (3600 * 24));
@@ -137,6 +136,7 @@ command(
 ┃   *Pʟᴜɢɪɴꜱ : ${plugins.commands.length}*
 ┃   *MODE : ${config.WORK_TYPE}*
 ┃   *Pʀᴇꜰɪx : ${prefix}*
+┃   *RAM:  ${formatp(os.totalmem() - os.freemem())} / ${formatp(os.totalmem())}*
 ┃   *Rᴜɴᴛɪᴍᴇ : ${runtime(process.uptime())}*
 ╰════════════════ ⪨
 `;
