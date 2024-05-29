@@ -30,7 +30,7 @@ module.exports = {
   ANTI_LINK_ACTION: process.env.ANTI_LINK_ACTION || "delete", //delete or kick
   SESSION_ID: process.env.SESSION_ID || "",//Session ID here
   LANG: process.env.LANG || "EN",//Only English currently supported
-  HANDLERS: process.env.HANDLER === "false" || process.env.HANDLER === "/",
+  HANDLERS: process.env.HANDLER === "false" || process.env.HANDLER === "null" ? "^" : "^[/]",process.env.HANDLER === "null" ? "^" : "^[/]",
   RMBG_KEY: process.env.RMBG_KEY || false,
   PLATFORM:isHeroku?"Heroku":isRailway?"Railway":isKoyeb?"Koyeb":"Other server",isHeroku,isKoyeb,isVPS,isRailway,
   BRANCH: "main",
