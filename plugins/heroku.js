@@ -173,7 +173,7 @@ command({
         desc: "Set bot variables",
         use: 'heroku'
     }, async (message, match) => {
-        match=match[1]
+        match = match || message.reply_message.text
         var m = message;
         if (!match) return await message.reply("_Need a var!_\n_Usage: .setvar WORK_TYPE:public_")
         let [key, ...valueArr] = match.split(':');
@@ -218,8 +218,8 @@ command(
         desc: "Get a Variable",
         use: 'heroku'
     }, async (message, match) => {
-        if (match[1] === '') return await message.reply("Variable not found")
-        return await message.reply(process.env[match[1].trim()]?.toString() || "Not found")
+        if (match === '') return await message.reply("Variable not found")
+        return await message.reply(process.env[match.trim()]?.toString() || "Not found")
    });
  command(
   {
@@ -255,8 +255,8 @@ command({
         desc: "Change Hotaro-md mode to public/private",
         use: 'heroku'
     }, async (message, match) => {
-        if (match[1]?.toLowerCase() == "public" || match[1]?.toLowerCase() == "private"){
-            return await setVar("WORK_TYPE",match[1],message)
+        if (match?.toLowerCase() == "public" || match?.toLowerCase() == "private"){
+            return await setVar("WORK_TYPE",match,message)
         } else {
             return await message.reply(`_*Mode manager*_\n_Current mode: ${config.WORK_TYPE}_\n_Usage .mode public/private_`)
         }
@@ -269,9 +269,9 @@ command(
         desc: "make quoted user sudo",
         use: 'owner'
     }, async (message, mm) => {
-   var m = message;
+   //var m = message;
         var newSudo = ( message.reply_message ? message.reply_message.jid : '' || message.mention[0] || mm[1]).split("@")[0]
-if (!newSudo) return await m.sendReply("*you need to reply/mention/number*")
+if (!newSudo) return await message.reply("*you need to reply/mention/number*")
 const oldSudo = config.SUDO?.split(",")
     var newSudo = ( message.reply_message ? message.reply_message.jid : '' || message.mention[0] || mm[1]).split("@")[0]
     if (!newSudo) return await message.reply("*you need to reply/mention/number*")
