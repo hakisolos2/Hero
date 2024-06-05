@@ -32,7 +32,7 @@ command(
     message.sendMessage(message.jid,match, {
       mentions: participants.map((a) => a.id),
     });
-  }
+  }}
 );
 
 command(
@@ -53,7 +53,7 @@ command(
     message.sendMessage(message.jid,teks.trim(), {
       mentions: participants.map((a) => a.id),
     });
-  }
+  }}
 );
 	
 command(
