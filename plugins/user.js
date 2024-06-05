@@ -18,7 +18,30 @@ const { WARN_COUNT } = require("../config");
 const { secondsToDHMS } = require("../lib/functions");
 const { saveWarn, resetWarn } = WarnDB;
 const { isPrivate } = require("../lib");
+const config = require("../config")
 
+    if (config.PRESENCE === "recording") {
+      if (message.jid) {
+        message.client.sendPresenceUpdate("recording", message.jid);
+      }
+    }
+
+    if (config.PRESENCE === "composing") {
+      if (message.jid) {
+        message.client.sendPresenceUpdate("composing", message.jid);
+      }
+    }
+
+    if (config.PRESENCE === "available") {
+      if (message.jid) {
+        message.client.sendPresenceUpdate("available", message.jid);
+      }
+    } 
+    if (config.PRESENCE === "unavailable") {
+      if (message.jid) {
+        message.client.sendPresenceUpdate("unavailable", message.jid);
+      }
+    } 
 /*command(
   {
     pattern: "pause",
