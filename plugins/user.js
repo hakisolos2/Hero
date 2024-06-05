@@ -19,19 +19,23 @@ const { secondsToDHMS } = require("../lib/functions");
 const { saveWarn, resetWarn } = WarnDB;
 const { isPrivate } = require("../lib");
 const config = require("../config")
-
+command(
+  {
+    on: "presence",
+    fromMe: true,
+    desc: "always online",
+  },
+  async (message, match, m, client) => {
     if (config.PRESENCE === "recording") {
       if (message.jid) {
         message.client.sendPresenceUpdate("recording", message.jid);
       }
     }
-
     if (config.PRESENCE === "composing") {
       if (message.jid) {
         message.client.sendPresenceUpdate("composing", message.jid);
       }
     }
-
     if (config.PRESENCE === "available") {
       if (message.jid) {
         message.client.sendPresenceUpdate("available", message.jid);
@@ -41,7 +45,7 @@ const config = require("../config")
       if (message.jid) {
         message.client.sendPresenceUpdate("unavailable", message.jid);
       }
-    } 
+    }});
 /*command(
   {
     pattern: "pause",
