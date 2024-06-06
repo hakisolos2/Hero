@@ -267,19 +267,6 @@ command(
         }
     );
 
-command({
-        pattern: 'mode ?(.*)',
-        fromMe: true,
-        desc: "Change Hotaro-md mode to public/private",
-        type: 'heroku'
-    }, async (message, match) => {
-        if (match?.toLowerCase() == "public" || match?.toLowerCase() == "private"){
-            return await setVar("WORK_TYPE",match,message)
-        } else {
-            return await message.reply(`_*Mode manager*_\n_Current mode: ${config.WORK_TYPE}_\n_Usage .mode public/private_`)
-        }
-    });
-
 command(
  {
         pattern: 'setsudo ?(.*)',
