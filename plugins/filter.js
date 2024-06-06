@@ -71,7 +71,7 @@ command(
 );
 
 command(
-  { on: "text", fromMe: false, dontAddCommandList: true },
+  { on: "text", fromMe: true, dontAddCommandList: true },
   async (message, match) => {
     var filtreler = await getFilter(message.jid);
     if (!filtreler) return;
