@@ -65,7 +65,7 @@ command(
         category: "general",
         type: 'misc'
         },
-    async(message) => {
+    async(message, match) => {
         let { data } = await axios.get('https://api.github.com/repos/anonphoenix007/HOTARO-MD')
         let cap = `> ʜᴏᴛᴀʀᴏ-ᴍᴅ repository stats
 *➠ Total Stars:* ${data.stargazers_count} *stars*
