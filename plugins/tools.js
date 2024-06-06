@@ -23,6 +23,18 @@ const {
 const { downloadMediaMessage } = require("@whiskeysockets/baileys");
 const { getLyrics } = require("../lib/functions");
 const config = require("../config");
+
+command(
+  {
+    pattern: "clearchat",
+    fromMe: true,
+    desc: "dltcht",
+    type: "tools",
+  }, async(message, match, m, client) => {
+     message.client.chatModify({ delete: true, lastMessages: [{ key: message.key, messageTimestamp: message.messageTimestamp }] }, message.jid)
+     let a = await message.reply("Successfully deleted this chat!") 
+  })
+	  
 command(
   {
     pattern: "vv",
