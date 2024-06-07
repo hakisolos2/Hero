@@ -153,7 +153,7 @@ command(
 	desc: 'delete whatsapp chat',
 	type: 'whatsapp'
 }, async (message, match, m, client) => {
-	await client.clearChat(message.jid)
+	await message.client.clearChat(message.jid)
 	await message.reply('_Chat Cleared_')
 });
 
@@ -164,7 +164,7 @@ command(
 	desc: 'archive whatsapp chat',
 	type: 'whatsapp'
 }, async (message, match, m, client) => {
-	await client.chatModify(message.jid, { archive: true })
+	await message.client.chatModify(message.jid, { archive: true })
 	await message.reply('_Chat Archived_')
 })
 
@@ -175,7 +175,7 @@ command(
 	desc: 'unarchive whatsapp chat',
 	type: 'whatsapp'
 }, async (message, match, m, client) => {
-	await client.chatModify(message.jid, { arcbive: false })
+	await message.client.chatModify(message.jid, { arcbive: false })
 	await message.reply('_Chat Unarchived_')
 })
 command(
@@ -185,7 +185,7 @@ command(
 	desc: 'pin whatsapp chat',
 	type: 'whatsapp'
 }, async (message, match, m, client) => {
-	await client.chatModify({ pin: true, }, message.jid );
+	await message.client.chatModify({ pin: true, }, message.jid );
 	await message.reply("Chat Pinned");
 })
 command(
@@ -195,6 +195,6 @@ command(
 	desc: 'unpin whatsapp chat',
 	type: 'whatsapp'
 }, async (message, match, m, client) => {
-	await client.chatModify({ pin: false, }, message.jid );
+	await message.client.chatModify({ pin: false, }, message.jid );
 	await message.reply("Chat unpinned");
 })
