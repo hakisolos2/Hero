@@ -16,7 +16,7 @@ const { isAdmins, formatp, parsedJid } = require("../lib");
 const config = require("../config");
 const os = require("os")
 
-command(
+/*command(
   {
     pattern: "tag",
     fromMe: true,
@@ -33,9 +33,59 @@ command(
       mentions: participants.map((a) => a.id),
     });
   }}
-);
+);*/
+command({
+            pattern: "hidetag",
+            fromMe: isPrivate,
+            desc: "Tags everyperson of group without mentioning their numbers",
+            type: 'group'
+        },
+        async(message, match, m, client) => {
+            if (!message.isGroup) return message.reply("This is a group command");
+            const groupMetadata = message.isGroup ? await message.client.groupMetadata(message.jid).catch((e) => {}) : "";
+            const participants = message.isGroup ? await groupMetadata.participants : "";
+            const groupAdmins = await getAdmin(message, match)
+            const isAdmins = message.isGroup ? groupAdmins.includes(message.sender) : false;
+            //if (!isAdmins) return citel.reply(tlang().admin);
+            //if (!isAdmins) citel.reply(tlang().admin);
+		await message.sendMessage(message.jid, {
+                text: match ? match : "",
+                mentions: participants.map((a) => a.id),
+            }, {
+                quoted: message,
+            });
+        }
+    )
 
-command(
+command({
+        pattern: "tagall",
+        desc: "Tags every person of group.",
+        category: "group",
+        filename: __filename,
+    },
+    async(Void, citel, text,{ isCreator }) => {                                                                                              if (!citel.isGroup) return citel.reply(tlang().group);                                                                               const groupMetadata = citel.isGroup ? await Void.groupMetadata(citel.chat).catch((e) => {}) : "";
+        const participants = citel.isGroup ? await groupMetadata.participants : "";
+        const groupAdmins = await getAdmin(Void, citel)                                                                                      const isAdmins = citel.isGroup ? groupAdmins.includes(citel.sender) : false;
+        if (!isAdmins) return citel.reply(tlang().admin);
+
+        let textt = `
+══✪〘   *Tag All*   〙✪══
+
+➲ *Message :* ${text ? text : "blank"}\n\n
+➲ *Author:* ${citel.pushName} 🔖
+`
+        for (let mem of participants) {
+            textt += `📍 @${mem.id.split("@")[0]}\n`;
+        }
+        Void.sendMessage(citel.chat, {
+            text: textt,
+            mentions: participants.map((a) => a.id),
+        }, {
+            quoted: citel,
+        });
+    }
+)
+/*command(
   {
     pattern: "tagall",
     fromMe: true,
@@ -54,7 +104,7 @@ command(
       mentions: participants.map((a) => a.id),
     });
   }}
-);
+);*/
 	
 command(
   {
