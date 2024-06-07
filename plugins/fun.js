@@ -24,7 +24,7 @@ command({
 }, async(message, match, m, client) => {
  if (!m.quoted) return message.reply("Reply to a message")
 	if (match.length > 2) return message.reply("Only an emoji is supported,retry.")
-	if (!match) return message.reply(`use like \n /react 😘`
+	if (!match) return message.reply(`use like \n /react 😘`)
 message.client.relayMessage(message.jid, { reactionMessage: {
 key: {
  id: m.quoted.id,
