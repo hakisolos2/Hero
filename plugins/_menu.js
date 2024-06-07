@@ -124,103 +124,6 @@ Description: ${i.desc}\`\`\``);
   }
 );
 
-
-/*command(
-  {
-    pattern: "list",
-    fromMe: isPrivate,
-    desc: "Show All Commands",
-    type: "user",
-    dontAddCommandList: true,
-  },
-  async (message, match, { prefix }) => {
-    let menu = "\t\t```Command List```\n";
-
-    let cmnd = [];
-    let cmd, desc;
-    plugins.commands.map((command) => {
-      if (command.pattern) {
-        cmd = command.pattern.toString().split(/\W+/)[1];
-      }
-      desc = command.desc || false;
-
-      if (!command.dontAddCommandList && cmd !== undefined) {
-        cmnd.push({ cmd, desc });
-      }
-    });
-    cmnd.sort();
-    cmnd.forEach(({ cmd, desc }, num) => {
-      menu += `\`\`\`${(num += 1)} ${cmd.trim()}\`\`\`\n`;
-      if (desc) menu += `Use: \`\`\`${desc}\`\`\`\n\n`;
-    });
-    menu += ``;
-    return await message.reply(menu);
-  }
-);*/
-command(
- {
-    pattern: 'tts',
-    fromMe: isPrivate,
-    desc: "text to speech",
-    type: 'tools'
-}, async (message, match) => {
-    var match = match || message.reply_message.text
-    if (!match) return await message.reply("Reply to a text");
-    if (!fs.existsSync("./temp")) {
-        fs.mkdirSync("./temp")
-    }
-    query = match.replace("tts","")
-    var lng = '0en';
-    if (/[\u0D00-\u0D7F]+/.test(query)) lng = 'ml';
-    let
-        LANG = lng,
-        ttsMessage = query,
-        SPEED = 1.0
-    if (langMatch = query.match("\\{([a-z]{2})\\}")) {
-        LANG = langMatch[1]
-        ttsMessage = ttsMessage.replace(langMatch[0], "")
-    }
-    if (speedMatch = query.match("\\{([0].[0-9]+)\\}")) {
-        SPEED = parseFloat(speedMatch[1])
-        ttsMessage = ttsMessage.replace(speedMatch[0], "")
-    }
-    try {
-        var audio = await gtts(ttsMessage,LANG)
-    } catch {
-        return await message.reply("_Unable to convert text to speech._")
-    }
-    await message.sendMessage(message.jid, {
-        audio,
-        mimetype: 'audio/mp4',
-        ptt: true,
-        waveform: Array.from({length: 40}, () => Math.floor(Math.random() * 99))
-    }, {
-        quoted: message.data
-    });
-});
-/*command(
-{
-    pattern: 'video2 ?(.*)',
-    fromMe: isPrivate,
-    desc: "Dunno",
-    use: 'util'
-}, async (message, match) => {
-	var s1 = !match.includes('youtu') ? message.reply_message.jid : match[1]
-    if (s1 && s1.includes("instagram")) return;
-    if (!s1) return await message.reply("*You need to provide Video Name.*");
-    if (!s1.includes('youtu')) return await message.reply("*You need to provide video name.*");
-    const getID = /(?:http(?:s|):\/\/|)(?:(?:www\.|)youtube(?:\-nocookie|)\.com\/(?:watch\?.*(?:|\&)v=|embed|shorts\/|v\/)|youtu\.be\/)([-_0-9A-Za-z]{11})/
-    var vid = getID.exec(s1)[1]
-    const video = await ytv(vid)
-    const caption = await ytTitle(vid)
-    return await message.client.sendMessage(message.jid, {
-            video,
-            mimetype: "video/mp4",
-            caption,
-            thumbnail: await skbuffer(`https://i.ytimg.com/vi/${vid}/hqdefault.jpg`)
-        },{quoted:message.data});
-    });
-*/
 command(
 {
       pattern: "find ?(.*)",
@@ -266,24 +169,9 @@ command(
     type: "tools"
 }, (async (message, match, m, client) => {
     if (match[1] && message.reply_message?.text && message.quoted.key.fromMe){                  
-    await client.edit(match[1],message.jid,message.quoted.key);
+    await message.client.edit(match[1],message.jid,message.quoted.key);
 }                                                                           
 }));
 
-/*command(
-{
-    pattern: 'send ?(.*)',
-    type: 'utility', 
-    fromMe: true, 
-    desc: "Sends message"
-    }, (async (message, match) => {
-    if (!message.reply_message) return await message.reply("*Reply to a message*\n*Ex: .send jid jid ...*")
-     if (!match[1]) match[1] = message.jid
-    let Jids = [...match[1]?.match(/[0-9]+(-[0-9]+|)(@g.us|@s.whatsapp.net)/g)] || [message.jid];
-        for (let jid of Jids) {
-     await message.forwardMessage(jid, message.quoted,{contextInfo:{isForwarded: false},detectLinks: true});
-    await new Promise((r) => setTimeout(r, 5000))
-        }
-}));*/
 
 
