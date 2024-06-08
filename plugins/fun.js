@@ -27,7 +27,7 @@ command({
 	if (!match) return message.reply(`use like \n /react 😘`)
 message.client.relayMessage(message.jid, { reactionMessage: {
 key: {
- id: m.quoted.id,
+ id: message.quoted.id,
  remoteJid: message.jid,
  fromMe: true
 },
