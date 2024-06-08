@@ -44,8 +44,8 @@ command({
             if (!message.isGroup) return message.reply("This is a group command");
             const groupMetadata = message.isGroup ? await message.client.groupMetadata(message.jid).catch((e) => {}) : "";
             const participants = message.isGroup ? await groupMetadata.participants : "";
-            const groupAdmins = await getAdmin(message, match)
-            const isAdmins = message.isGroup ? groupAdmins.includes(message.sender) : false;
+            //const groupAdmins = await getAdmin(message, match)
+            //const isAdmins = message.isGroup ? groupAdmins.includes(message.sender) : false;
             //if (!isAdmins) return citel.reply(tlang().admin);
             //if (!isAdmins) citel.reply(tlang().admin);
 		await message.sendMessage(message.jid, {
@@ -67,8 +67,8 @@ command({
 	if (!message.isGroup) return message.reply("This is a group command");                                                                               
 	const groupMetadata = message.isGroup ? await message.client.groupMetadata(message.jid).catch((e) => {}) : "";
         const participants = message.isGroup ? await groupMetadata.participants : "";
-        const groupAdmins = await getAdmin(Void, citel)                                                                                      
-	const isAdmins = message.isGroup ? groupAdmins.includes(message.sender) : false;
+        //const groupAdmins = await getAdmin(Void, citel)                                                                                      
+	//const isAdmins = message.isGroup ? groupAdmins.includes(message.sender) : false;
         //if (!isAdmins) return citel.reply(tlang().admin);
 
         let textt = `
