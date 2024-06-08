@@ -1,3 +1,15 @@
+/*
+██╗  ██╗ ██████╗ ████████╗ █████╗ ██████╗  ██████╗       ███╗   ███╗██████╗ 
+██║  ██║██╔═══██╗╚══██╔══╝██╔══██╗██╔══██╗██╔═══██╗      ████╗ ████║██╔══██╗
+███████║██║   ██║   ██║   ███████║██████╔╝██║   ██║█████╗██╔████╔██║██║  ██║
+██╔══██║██║   ██║   ██║   ██╔══██║██╔══██╗██║   ██║╚════╝██║╚██╔╝██║██║  ██║
+██║  ██║╚██████╔╝   ██║   ██║  ██║██║  ██║╚██████╔╝      ██║ ╚═╝ ██║██████╔╝
+╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝       ╚═╝     ╚═╝╚═════╝
+ By : Taira Makino
+ Github : https://github.com/anonphoenix007
+ WhatsApp : https://wa.me/2347080968564
+*/                                                                                                                                                    
+
 
         const axios = require('axios')
         const { getJson,command, GIFBufferToVideoBuffer} = require('../lib')
@@ -14,7 +26,7 @@
                         responseType: "arraybuffer",
                     });
                     const buffer = Buffer.from(response.data, "utf-8");
-                    let users = match.mentionedJid ? match.mentionedJid[0] : match.msg.contextInfo.participant || false;
+                    let users = match || message.reply_message.jid;
                     let gif = await GIFBufferToVideoBuffer(buffer);
                     if (users) {
                         let cap = `@${message.sender.split("@")[0]} bitten to @${users.split("@")[0]} `;
@@ -38,7 +50,7 @@
                         responseType: "arraybuffer",
                     });
                     const buffer = Buffer.from(response.data, "utf-8");
-                    let users = match.mentionedJid ? match.mentionedJid[0] : match.msg.contextInfo.participant || false;
+                    let users = match || message.reply_message.jid; 
                     let gif = await GIFBufferToVideoBuffer(buffer);
                     if (users) {
                         let cap = `@${message.sender.split("@")[0]} blushed to @${users.split("@")[0]} `;
@@ -62,7 +74,7 @@
                         responseType: "arraybuffer",
                     });
                     const buffer = Buffer.from(response.data, "utf-8");
-                    let users = match.mentionedJid ? match.mentionedJid[0] : match.msg.contextInfo.participant || false;
+                    let users = match || message.reply_message.jid;
                     let gif = await GIFBufferToVideoBuffer(buffer);
                     if (users) {
                         let cap = `@${message.sender.split("@")[0]} punched to @${users.split("@")[0]} `;
@@ -86,7 +98,7 @@
                         responseType: "arraybuffer",
                     });
                     const buffer = Buffer.from(response.data, "utf-8");
-                    let users = match.mentionedJid ? match.mentionedJid[0] : match.msg.contextInfo.participant || false;
+                    let users = match || message.reply_message.jid;
                     let gif = await GIFBufferToVideoBuffer(buffer);
                     if (users) {
                         let cap = `@${message.sender.split("@")[0]} patted with @${users.split("@")[0]} `;
@@ -110,7 +122,7 @@
                         responseType: "arraybuffer",
                     });
                     const buffer = Buffer.from(response.data, "utf-8");
-                    let users = match.mentionedJid ? match.mentionedJid[0] : match.msg.contextInfo.participant || false;
+                    let users = match || message.reply_message.jid;
                     let gif = await GIFBufferToVideoBuffer(buffer);
                     if (users) {
                         let cap = `@${message.sender.split("@")[0]} kissed to @${users.split("@")[0]} `;
@@ -133,7 +145,7 @@
                         responseType: "arraybuffer",
                     });
                     const buffer = Buffer.from(response.data, "utf-8");
-                    let users = match.mentionedJid ? match.mentionedJid[0] : match.msg.contextInfo.participant || false;
+                    let users = match || message.reply_message.jid;
                     let gif = await GIFBufferToVideoBuffer(buffer);
                     if (users) {
                         let cap = `@${message.sender.split("@")[0]} killed @${users.split("@")[0]}. `;
@@ -156,7 +168,7 @@
                         responseType: "arraybuffer",
                     });
                     const buffer = Buffer.from(response.data, "utf-8");
-                    let users = match.mentionedJid ? match.mentionedJid[0] : match.msg.contextInfo.participant || false;
+                    let users = match || message.reply_message.jid;
                     let gif = await GIFBufferToVideoBuffer(buffer);
                     if (users) {
                         let cap = `@${message.sender.split("@")[0]} felt happy with @${users.split("@")[0]} `;
@@ -180,7 +192,7 @@
                         responseType: "arraybuffer",
                     });
                     const buffer = Buffer.from(response.data, "utf-8");
-                    let users = match.mentionedJid ? match.mentionedJid[0] : match.msg.contextInfo.participant || false;
+                    let users = match || message.reply_message.jid;
                     let gif = await GIFBufferToVideoBuffer(buffer);
                     if (users) {
                         let cap = `@${message.sender.split("@")[0]} danced with @${users.split("@")[0]} `;
@@ -204,7 +216,7 @@
                         responseType: "arraybuffer",
                     });
                     const buffer = Buffer.from(response.data, "utf-8");
-                    let users = match.mentionedJid ? match.mentionedJid[0] : match.msg.contextInfo.participant || false;
+                    let users = match || message.reply_message.jid;
                     let gif = await GIFBufferToVideoBuffer(buffer);
                     if (users) {
                         let cap = `@${message.sender.split("@")[0]} yeeted to @${users.split("@")[0]} `;
@@ -228,7 +240,7 @@
                         responseType: "arraybuffer",
                     });
                     const buffer = Buffer.from(response.data, "utf-8");
-                    let users = match.mentionedJid ? match.mentionedJid[0] : match.msg.contextInfo.participant || false;
+                    let users = match || message.reply_message.jid;
                     let gif = await GIFBufferToVideoBuffer(buffer);
                     if (users) {
                         let cap = `@${message.sender.split("@")[0]} winked with @${users.split("@")[0]} `;
@@ -252,7 +264,7 @@
                         responseType: "arraybuffer",
                     });
                     const buffer = Buffer.from(response.data, "utf-8");
-                    let users = match.mentionedJid ? match.mentionedJid[0] : match.msg.contextInfo.participant || false;
+                    let users = match || message.reply_message.jid;
                     let gif = await GIFBufferToVideoBuffer(buffer);
                     if (users) {
                         let cap = `@${message.sender.split("@")[0]} slapped @${users.split("@")[0]} `;
@@ -275,7 +287,7 @@
                         responseType: "arraybuffer",
                     });
                     const buffer = Buffer.from(response.data, "utf-8");
-                    let users = match.mentionedJid ? match.mentionedJid[0] : match.msg.contextInfo.participant || false;
+                    let users = match || message.reply_message.jid;
                     let gif = await GIFBufferToVideoBuffer(buffer);
                     if (users) {
                         let cap = `@${message.sender.split("@")[0]} bonked to @${users.split("@")[0]} `;
@@ -299,7 +311,7 @@
                         responseType: "arraybuffer",
                     });
                     const buffer = Buffer.from(response.data, "utf-8");
-                    let users = match.mentionedJid ? match.mentionedJid[0] : match.msg.contextInfo.participant || false;
+                    let users = match || message.reply_message.jid;
                     let gif = await GIFBufferToVideoBuffer(buffer);
                     if (users) {
                         let cap = `@${message.sender.split("@")[0]} bullied to @${users.split("@")[0]} `;
@@ -321,7 +333,7 @@
                         responseType: "arraybuffer",
                     });
                     const buffer = Buffer.from(response.data, "utf-8");
-                    let users = match.mentionedJid ? match.mentionedJid[0] : match.msg.contextInfo.participant || false;
+                    let users = match || message.reply_message.jid;
                     let gif = await GIFBufferToVideoBuffer(buffer);
                     if (users) {
                         let cap = `@${message.sender.split("@")[0]} cringed at @${users.split("@")[0]} `;
@@ -343,7 +355,7 @@
                     responseType: "arraybuffer",
                 });
                 const buffer = Buffer.from(response.data, "utf-8");
-                let users = match.mentionedJid ? match.mentionedJid[0] : match.msg.contextInfo.participant || false;
+                let users = match || message.reply_message.jid;
                 let gif = await GIFBufferToVideoBuffer(buffer);
                 if (users) {
                     let cap = `@${message.sender.split("@")[0]} cuddled with @${users.split("@")[0]} `;
