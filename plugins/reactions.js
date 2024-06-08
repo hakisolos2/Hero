@@ -228,7 +228,7 @@
                 }
             )
             //---------------------------------------------------------------------------
-        commamd({
+        command({
                     pattern: "wink",
                     fromMe: isPrivate,
                     type: "reaction"
