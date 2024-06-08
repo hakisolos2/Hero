@@ -26,6 +26,7 @@ command(
     pattern: "yta",
     fromMe: isPrivate,
     desc: "Download audio from youtube",
+    type: "Downloader"
   },
   async (message, match) => {
     match = match || message.reply_message.text;
@@ -51,6 +52,7 @@ command(
     pattern: "ytmp4",
     fromMe: isPrivate,
     desc: "Download audio from youtube",
+    type: "Downloader"
   },
   async (message, match) => {
     match = match || message.reply_message.text;
@@ -75,6 +77,7 @@ command(
     pattern: "play",
     fromMe: isPrivate,
     desc: "Download audio from youtube",
+    type: "Downloader"
   },
   async (message, match) => {
     match = match || message.reply_message.text;
@@ -99,6 +102,7 @@ command(
     pattern: "video",
     fromMe: isPrivate,
     desc: "Download video from youtube",
+    type: "Downloader"
   },
   async (message, match) => {
     match = match || message.reply_message.text;
