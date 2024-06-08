@@ -27,7 +27,7 @@ command({ pattern: "wa", fromMe: isPrivate, desc: "Makes wa.me of quoted or ment
          }
      );
 
-ommand({ pattern: "repo", fromMe: isPrivate, desc: "Sends info about repo.", type: "user",
+command({ pattern: "repo", fromMe: isPrivate, desc: "Sends info about repo.", type: "user",
     },
     async(message, match) => { 
     let { data } = await axios.get('https://api.github.com/repos/Anonphoenix007/HOTARO-MD')
