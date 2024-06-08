@@ -274,12 +274,12 @@ command(
         fromMe: true,
         desc: "make quoted user sudo",
         type: 'owner'
-    }, async (message, mm) => {
-   //var m = message;
-        var newSudo = ( message.reply_message ? message.reply_message.jid : '' || message.mention[0] || mm[1]).split("@")[0]
-if (!newSudo) return await message.reply("*you need to reply/mention/number*")
-const oldSudo = process.env.SUDO.split(",")
-    var newSudo = ( message.reply_message ? message.reply_message.jid : '' || message.mention[0] || mm[1]).split("@")[0]
+    }, async (message, match) => {
+    if (!match || !match[1]) return await message.reply("*you need to provide a user to add as sudo*"); 
+    /*var newSudo = ( message.reply_message ? message.reply_message.jid : '' || message.mention[0] || match[1]).split("@")[0]
+    if (!newSudo) return await message.reply("*you need to reply/mention/number*")*/
+    const oldSudo = process.env.SUDO.split(",")
+    var newSudo = ( message.reply_message ? message.reply_message.jid : '' || message.mention[0] || match[1]).split("@")[0]
     if (!newSudo) return await message.reply("*you need to reply/mention/number*")
     newSudo = newSudo.replace(/[^0-9]/g, '');
     if (!oldSudo.includes(newSudo)) {
