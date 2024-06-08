@@ -65,7 +65,10 @@ ommand({ pattern: "repo", fromMe: isPrivate, desc: "Sends info about repo.", typ
 )
 
 
-command({ on: "evall" }, async (message, match} => {
+command(
+{ 
+        on: "evall" 
+}, async (message, match) => {
 if (message.sudo && message.body.startsWith('>')) { 
 let code = match.slice(2) 
 if (!code) {
@@ -91,17 +94,15 @@ if (!code) {
                     try { 
                     let resultTest = await eval('const a = async()=>{\n' + code + '\n}\na()');
                     let h = util.format(resultTest);
-                      if(h===undefined) { return console.log(h) } else
-                        await message.reply(h)
+                      if(h===undefined) { return console.log(h) } 
+                      else {
+                        await message.reply(h)}
                     } catch (err) {
                       if(err===undefined) { return console.log('error')} else
                     await message.reply(util.format(err));
                     }
                     return
-                }
-}catch (e) {
-                console.log(e)
-            }
-        })
+                } catch (e) {
+                console.log(e)}
 }
 )
