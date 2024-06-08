@@ -13,11 +13,6 @@
 
 const { fromBuffer, mimeTypes } = require("file-type");
 const { command, isPrivate } = require("../lib/");
-function sleep(ms) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-}
 
 command(
   {
@@ -28,9 +23,9 @@ command(
   },
   async (message, match) => {
     const start = new Date().getTime();
-    await message.sendMessage(message.jid, { text: "```☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬\n  Pinging!```" });
+    const { key } = await message.sendMessage(message.jid, { text: "```☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬\n  Pinging!```" });
     const end = new Date().getTime();
-    return await message.sendMessage(message.jid, { text: "*ʟᴀᴛᴇɴᴄʏ:* " + (end - start) + " *ms*"});
+    return await message.sendMessage(message.jid, { text: "*ʟᴀᴛᴇɴᴄʏ:* " + (end - start) + " *ms*", edit: key });
   }
 );
 
