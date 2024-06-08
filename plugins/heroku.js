@@ -110,9 +110,10 @@ command(
   if(match === "private") 
   process.env.WORK_TYPE="private"
   await message.reply("*HOTARO-MD WORKTYPE is now private*")
-  if (match === "public") 
+  if (match === "public"){
   process.env.WORK_TYPE="public"
   await message.reply("*HOTARO-MD WORKTYPE is now public*")
+  }
   else {
   await message.reply("*You need to choose between private or public*")}
  });
