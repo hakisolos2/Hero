@@ -107,12 +107,12 @@ command(
   use: "heroku"
  }, async(message, match) => {
   if(!match) { return message.reply("use like .mode private/public")};
-  if(match === "private") {
+  if(match === "private") 
   process.env.WORK_TYPE="private"
-  await message.reply("*HOTARO-MD WORKTYPE is now private*")}
-  else if (match === "public"){
+  await message.reply("*HOTARO-MD WORKTYPE is now private*")
+  else if (match === "public") 
   process.env.WORK_TYPE="public"
-  await message.reply("*HOTARO-MD WORKTYPE is now public*")}
+  await message.reply("*HOTARO-MD WORKTYPE is now public*")
   else {
   await message.reply("*You need to choose between private or public*")}
  });
