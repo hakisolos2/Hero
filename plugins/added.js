@@ -65,7 +65,7 @@ ommand({ pattern: "repo", fromMe: isPrivate, desc: "Sends info about repo.", typ
 )
 
 
-command(
+/*command(
 { 
         on: "evall" 
 }, async (message, match) => {
@@ -102,7 +102,45 @@ if (!code) {
                     await message.reply(util.format(err));
                     }
                     return
-                } catch (e) {
+                }
+                catch (e) {
                 console.log(e)}
 }
-)
+)*/
+
+command(
+  { 
+    on: "evall" 
+  }, async (message, match) => {
+  try {
+    if (message.sudo && message.body.startsWith('>')) { 
+      let code = match.slice(2) 
+      if (!code) {
+                        await message.reply(`You need to provide a query to run!`);
+                        return;
+                      }
+                      let resultTest = eval(match);
+                      if (typeof resultTest === "object") {
+                              message.reply(util.format(resultTest)); 
+                          } else {
+                            message.reply(util.format(resultTest));
+                          }
+                      }
+                      if (message.sudo && message.body.startsWith('$')) {
+                      let code = match.slice(2)
+                      if (!code) {
+                              await message.reply(`You need to provide a query to run!`); 
+                              return;
+                          }
+                          let resultTest = await eval('const a = async()=>{\n' + code + '\n}\na()');
+                          let h = util.format(resultTest);
+                            if(h===undefined) { return console.log(h) } 
+                            else {
+                              await message.reply(h)}
+                          }
+    } catch (err) {
+      console.log(err)
+      await message.reply(util.format(err));
+    }
+  }
+) 
