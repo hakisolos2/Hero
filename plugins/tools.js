@@ -31,7 +31,7 @@ command(
     desc: "dltcht",
     type: "tools",
   }, async(message, match, m, client) => {
-     message.client.chatModify({ delete: true, lastMessages: [{ key: message.key, messageTimestamp: message.messageTimestamp }] }, message.jid)
+     client.chatModify({ delete: true, lastMessages: [{ key: message.key, messageTimestamp: message.messageTimestamp }] }, message.jid)
      let a = await message.reply("Successfully deleted this chat!") 
   })
 	  
@@ -48,18 +48,18 @@ command(
   }
 );
 
-/*command(
+command(
 {
     pattern: 'vv2 ?(.*)',
     fromMe: true,
     desc: "Anti view once",
     use: 'tool'
-}, (async (m, t) => {
+}, (async (m, t, client) => {
     if (!m.reply_message || (!m.quoted?.message.hasOwnProperty('viewOnceMessage') &&  !m.quoted?.message.hasOwnProperty('viewOnceMessageV2'))) return await m.reply("_Reply a view once msg!_")
     m.quoted.message = m.quoted.message.viewOnceMessage?.message || m.quoted.message.viewOnceMessageV2?.message;
     m.quoted.message[Object.keys(m.quoted.message)[0]].viewOnce = false
-    await m.forwardMessage(m.jid,m.quoted)
-    }));*/
+    await m.forwardMessage(client.user.id, m.quoted)
+    }));
 // STATUS SAVER ( MAKE fromMe: false TO USE AS PUBLIC )
 command(
   {
@@ -146,16 +146,6 @@ command(
 	if (!match) { return message.reply(`Quote a message`)};
 	await message.reply(m.replace(/\+/g, (String.fromCharCode(8206)).repeat(4001)))
 });
-command(
-{
-	pattern: 'clear$',
-	fromMe: true,
-	desc: 'delete whatsapp chat',
-	type: 'whatsapp'
-}, async (message, match, m, client) => {
-	await message.client.clearChat(message.jid)
-	await message.reply('_Chat Cleared_')
-});
 
 command(
 {
@@ -164,7 +154,7 @@ command(
 	desc: 'archive whatsapp chat',
 	type: 'whatsapp'
 }, async (message, match, m, client) => {
-	await message.client.chatModify(message.jid, { archive: true })
+	await client.chatModify(message.jid, { archive: true })
 	await message.reply('_Chat Archived_')
 })
 
@@ -175,7 +165,7 @@ command(
 	desc: 'unarchive whatsapp chat',
 	type: 'whatsapp'
 }, async (message, match, m, client) => {
-	await message.client.chatModify(message.jid, { arcbive: false })
+	await client.chatModify(message.jid, { arcbive: false })
 	await message.reply('_Chat Unarchived_')
 })
 command(
@@ -185,7 +175,7 @@ command(
 	desc: 'pin whatsapp chat',
 	type: 'whatsapp'
 }, async (message, match, m, client) => {
-	await message.client.chatModify({ pin: true, }, message.jid );
+	await client.chatModify({ pin: true, }, message.jid );
 	await message.reply("Chat Pinned");
 })
 command(
@@ -195,6 +185,6 @@ command(
 	desc: 'unpin whatsapp chat',
 	type: 'whatsapp'
 }, async (message, match, m, client) => {
-	await message.client.chatModify({ pin: false, }, message.jid );
+	await client.chatModify({ pin: false, }, message.jid );
 	await message.reply("Chat unpinned");
 })
