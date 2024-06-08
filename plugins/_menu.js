@@ -107,7 +107,6 @@ Description: ${i.desc}\`\`\``);
       });
       cmnd.sort();
       category.sort().forEach((cmmd) => {
-        //menu += `\n\t⦿---- *${cmmd.toUpperCase()}* ----⦿\n`;
         menu += `\n
 ╭═══════════════ ⪩
 ╰╮╰┈➤ *${cmmd.toUpperCase()}*
@@ -116,7 +115,6 @@ Description: ${i.desc}\`\`\``);
         comad.forEach(({ cmd }) => {
           menu += `┃  ${cmd.trim()} \n`;
         });
-        //menu += `\n`;
         menu += `╰════════════════ ⪨`;
       });
       return await message.sendMessage(message.jid,menu);
@@ -169,7 +167,7 @@ command(
     type: "tools"
 }, (async (message, match, m, client) => {
     if (match[1] && message.reply_message?.text && message.quoted.key.fromMe){                  
-    await message.client.edit(match[1],message.jid,message.quoted.key);
+    await client.edit(match[1],message.jid,message.quoted.key);
 }                                                                           
 }));
 
