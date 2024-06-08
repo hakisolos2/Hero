@@ -99,8 +99,9 @@ if (!code) {
                     }
                     return
                 }
-            } catch (e) {
+}catch (e) {
                 console.log(e)
             }
         })
 }
+)
