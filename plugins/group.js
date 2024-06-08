@@ -61,7 +61,7 @@ command({
         pattern: "tagall",
 	fromMe: true,
         desc: "Tags every person of group.",
-        type:: "group"
+        type: "group"
     },
     async(message, match) => { 
 	if (!message.isGroup) return message.reply("This is a group command");                                                                               
