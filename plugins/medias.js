@@ -1,6 +1,6 @@
 const { command, isPrivate, serialize } = require("../lib");
 const fs = require("fs");
-const { download } from 'aptoide-scraper'; 
+const { download } = require('aptoide-scraper'); 
 /*command({
             pattern: "play",
             fromMe: isPrivate,
