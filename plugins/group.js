@@ -35,8 +35,8 @@ const os = require("os")
   }}
 );*/
 command({
-            pattern: "hidetag",
-            fromMe: isPrivate,
+            pattern: "tag",
+            fromMe: true,
             desc: "Tags everyperson of group without mentioning their numbers",
             type: 'group'
         },
@@ -59,29 +59,31 @@ command({
 
 command({
         pattern: "tagall",
+	fromMe: true,
         desc: "Tags every person of group.",
-        category: "group",
-        filename: __filename,
+        type:: "group"
     },
-    async(Void, citel, text,{ isCreator }) => {                                                                                              if (!citel.isGroup) return citel.reply(tlang().group);                                                                               const groupMetadata = citel.isGroup ? await Void.groupMetadata(citel.chat).catch((e) => {}) : "";
-        const participants = citel.isGroup ? await groupMetadata.participants : "";
-        const groupAdmins = await getAdmin(Void, citel)                                                                                      const isAdmins = citel.isGroup ? groupAdmins.includes(citel.sender) : false;
-        if (!isAdmins) return citel.reply(tlang().admin);
+    async(message, match) => { 
+	if (!message.isGroup) return message.reply("This is a group command");                                                                               
+	const groupMetadata = message.isGroup ? await message.client.groupMetadata(message.jid).catch((e) => {}) : "";
+        const participants = message.isGroup ? await groupMetadata.participants : "";
+        const groupAdmins = await getAdmin(Void, citel)                                                                                      
+	const isAdmins = message.isGroup ? groupAdmins.includes(message.sender) : false;
+        //if (!isAdmins) return citel.reply(tlang().admin);
 
         let textt = `
-══✪〘   *Tag All*   〙✪══
+_*☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬ Tagall*_
 
-➲ *Message :* ${text ? text : "blank"}\n\n
-➲ *Author:* ${citel.pushName} 🔖
+🏴‍☠️ *Message :* ${match? match : "blank"}\n\n
 `
         for (let mem of participants) {
-            textt += `📍 @${mem.id.split("@")[0]}\n`;
+            textt += `🏴‍☠️ @${mem.id.split("@")[0]}\n`;
         }
-        Void.sendMessage(citel.chat, {
+        await message.sendMessage(message.jid, {
             text: textt,
             mentions: participants.map((a) => a.id),
         }, {
-            quoted: citel,
+            quoted: message,
         });
     }
 )
@@ -271,7 +273,7 @@ command(
 );
 
     //---------------------------------------------------------------------------
-command(
+/*command(
 {
 	pattern: 'join ?(.*)',
 	fromMe: true,
@@ -285,7 +287,17 @@ command(
 	let res = await client.groupAcceptInvite(result)
 	if (!res) return await message.reply('_Invalid Group Link!_')
 	if (res) return await message.reply('_Group Joined!_')
-})
+})*/
+
+command({
+    pattern: 'join ?(.*)',
+    fromMe: true,
+    use: 'group'
+}, (async (message, match, m, client) => {
+    var rgx = /^(https?:\/\/)?chat\.whatsapp\.com\/(?:invite\/)?([a-zA-Z0-9_-]{22})$/
+    if (!match[1] || !rgx.test(match[1])) return await message.reply("*provide a group link*");
+    await message.client.groupAcceptInvite(match[1].split("/")[3])
+})); 
 
 command(
 {
@@ -297,7 +309,7 @@ command(
 	if (!message.isGroup) return await message.reply('_This command is only for group chats_')
 	if (!isAdmin) return await message.reply("I'm not an admin")
 	const response = await client.groupInviteCode(message.jid)
-	await message.reply(`https://chat.whatsapp.com/${response}`)
+	await message.reply(` Requested group link 🔗 \n\nhttps://chat.whatsapp.com/${response}`)
 })
 command(
 {
@@ -434,10 +446,7 @@ const formatTime = (seconds) => {
 
 command(
 {
-	on: "about",
-	fromMe: false,
-	desc: "upd status"
-}, async (message, match) => {
+	on: "about",}, async (message, match, m, client) => {
    let text = `☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬, By:Tᴀɪʀᴀ Mᴀᴋɪɴᴏ, Alive:${uptimeFormatted}, RAM: ${formatp(os.totalmem() - os.freemem())} / ${formatp(os.totalmem())}`
    await message.client.updateProfileStatus(text, randomTime)
 });*/
