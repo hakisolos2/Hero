@@ -106,8 +106,8 @@ command(
   desc: "change mode",
   use: "heroku"
  }, async(message, match) => {
-  if(!match) return message.reply("use like .mode private/public")
-  If(match === "private"){
+  if(!match) { return message.reply("use like .mode private/public")};
+  if(match === "private") {
   process.env.WORK_TYPE="private"
   await message.reply("*HOTARO-MD WORKTYPE is now private*")}
   else if (match === "public"){
