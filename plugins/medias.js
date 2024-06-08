@@ -9,7 +9,6 @@ command(
    desc: "apk and mod apk download",
    use: "downloader"
 }, async(message, match, m, client) => {   
-  try {
       if (!match) return message.reply('*Please provide the APK Name to download.*')
       await message.sendMessage(message.jid, {text: `*Downloading ${match}*`})
       let data = await download(match);
@@ -24,8 +23,4 @@ command(
         { document: { url: data.dllink }, mimetype: 'application/vnd.android.package-archive', fileName: data.name + '.apk', caption: null },
         { quoted: message }
       )
-    }
-  } catch {
-    await message.reply(`*Download error occured.*`);
-  }
-};
+});
