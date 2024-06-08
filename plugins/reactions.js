@@ -21,7 +21,7 @@
                     type: "reaction"
                 },
                 async(message, match) => {
-                    var bite = await fetchJson(`https://api.waifu.pics/sfw/bite`);
+                    var bite = await getJson(`https://api.waifu.pics/sfw/bite`);
                     const response = await axios.get(bite.url, {
                         responseType: "arraybuffer",
                     });
@@ -45,7 +45,7 @@
                 },
                 async(message, match) => {
         
-                    var bite = await fetchJson(`https://api.waifu.pics/sfw/blush`);
+                    var bite = await getJson(`https://api.waifu.pics/sfw/blush`);
                     const response = await axios.get(bite.url, {
                         responseType: "arraybuffer",
                     });
@@ -69,7 +69,7 @@
                 },
                 async(message, match) => {
         
-                    var bite = await fetchJson(`https://api.waifu.pics/sfw/kick`);
+                    var bite = await getJson(`https://api.waifu.pics/sfw/kick`);
                     const response = await axios.get(bite.url, {
                         responseType: "arraybuffer",
                     });
@@ -93,7 +93,7 @@
                 },
                 async(message, match) => {
         
-                    var bite = await fetchJson(`https://api.waifu.pics/sfw/pat`);
+                    var bite = await getJson(`https://api.waifu.pics/sfw/pat`);
                     const response = await axios.get(bite.url, {
                         responseType: "arraybuffer",
                     });
@@ -117,7 +117,7 @@
                 },
                 async(message, match) => {
         
-                    var bite = await fetchJson(`https://api.waifu.pics/sfw/kiss`);
+                    var bite = await getJson(`https://api.waifu.pics/sfw/kiss`);
                     const response = await axios.get(bite.url, {
                         responseType: "arraybuffer",
                     });
@@ -140,7 +140,7 @@
                     type: "reaction"
                 },
                 async(message, match) => {
-                    var bite = await fetchJson(`https://api.waifu.pics/sfw/kill`);
+                    var bite = await getJson(`https://api.waifu.pics/sfw/kill`);
                     const response = await axios.get(bite.url, {
                         responseType: "arraybuffer",
                     });
@@ -163,7 +163,7 @@
                     type: "reaction"
                 },
                 async(message, match) => {
-                    var bite = await fetchJson(`https://api.waifu.pics/sfw/dance`);
+                    var bite = await getJson(`https://api.waifu.pics/sfw/dance`);
                     const response = await axios.get(bite.url, {
                         responseType: "arraybuffer",
                     });
@@ -187,7 +187,7 @@
                 },
                 async(message, match) => {
         
-                    var bite = await fetchJson(`https://api.waifu.pics/sfw/dance`);
+                    var bite = await getJson(`https://api.waifu.pics/sfw/dance`);
                     const response = await axios.get(bite.url, {
                         responseType: "arraybuffer",
                     });
@@ -211,7 +211,7 @@
                 },
                 async(message, match) => {
         
-                    var bite = await fetchJson(`https://api.waifu.pics/sfw/yeet`);
+                    var bite = await getJson(`https://api.waifu.pics/sfw/yeet`);
                     const response = await axios.get(bite.url, {
                         responseType: "arraybuffer",
                     });
@@ -235,7 +235,7 @@
                 },
                 async(message, match) => {
         
-                    var bite = await fetchJson(`https://api.waifu.pics/sfw/wink`);
+                    var bite = await getJson(`https://api.waifu.pics/sfw/wink`);
                     const response = await axios.get(bite.url, {
                         responseType: "arraybuffer",
                     });
@@ -259,7 +259,7 @@
                 },
                 async(message, match) => {
         
-                    var bite = await fetchJson(`https://api.waifu.pics/sfw/slap`);
+                    var bite = await getJson(`https://api.waifu.pics/sfw/slap`);
                     const response = await axios.get(bite.url, {
                         responseType: "arraybuffer",
                     });
@@ -282,7 +282,7 @@
                     type: "reaction"
                 },
                 async(message, match) => {
-                    var bite = await fetchJson(`https://api.waifu.pics/sfw/bonk`);
+                    var bite = await getJson(`https://api.waifu.pics/sfw/bonk`);
                     const response = await axios.get(bite.url, {
                         responseType: "arraybuffer",
                     });
@@ -306,7 +306,7 @@
                 },
                 async(message, match) => {
         
-                    var bite = await fetchJson(`https://api.waifu.pics/sfw/bully`);
+                    var bite = await getJson(`https://api.waifu.pics/sfw/bully`);
                     const response = await axios.get(bite.url, {
                         responseType: "arraybuffer",
                     });
@@ -328,7 +328,7 @@
                     fromMe: isPrivate,
                     type: "reaction"
                 }, async(message, match) => {
-                    var bite = await fetchJson(`https://api.waifu.pics/sfw/cringe`);
+                    var bite = await getJson(`https://api.waifu.pics/sfw/cringe`);
                     const response = await axios.get(bite.url, {
                         responseType: "arraybuffer",
                     });
@@ -350,7 +350,7 @@
                 fromMe: isPrivate,
                 type: "reaction"
             },  async(message, match) => {
-                var bite = await fetchJson(`https://api.waifu.pics/sfw/cuddle`);
+                var bite = await getJson(`https://api.waifu.pics/sfw/cuddle`);
                 const response = await axios.get(bite.url, {
                     responseType: "arraybuffer",
                 });
