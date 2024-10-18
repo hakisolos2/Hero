@@ -68,23 +68,17 @@ command(
   },
   async (message, match) => {
     if (match) {
-      for (let i of plugins.commands) {
-        if (
-          i.pattern instanceof RegExp &&
-          i.pattern.test(message.prefix + match)
-        ) {
+      plugins.commands.forEach((i) => {
+        if (i.pattern instanceof RegExp && i.pattern.test(message.prefix + match)) {
           const cmdName = i.pattern.toString().split(/\W+/)[1];
           message.reply(`\`\`\`Command: ${message.prefix}${cmdName.trim()}
 Description: ${i.desc}\`\`\``);
         }
-      }
+      });
     } else {
-      let { prefix } = message;
-      let [date, time] = new Date()
-        .toLocaleString("en-IN", { timeZone: "Africa/Lagos" })
-        .split(",");
-
-      // Menu header with shorter lines and style
+      let [date, time] = new Date().toLocaleString("en-IN", { timeZone: "Africa/Lagos" }).split(",");
+      
+      // Stylish menu header
       let menu = `
 ✦✧━━ *QUEEN ALYA* ━━✧✦
 🌟 *BY:* STAR KING
@@ -93,51 +87,27 @@ Description: ${i.desc}\`\`\``);
 🔢 *TOTAL COMMANDS:* ${plugins.commands.length}
 `;
 
-      let cmnd = [];
-      let cmd;
-      let category = [];
+      let categories = {};
 
-      plugins.commands.map((command) => {
-        if (command.pattern instanceof RegExp) {
-          cmd = command.pattern.toString().split(/\W+/)[1];
-        }
-
-        if (!command.dontAddCommandList && cmd !== undefined) {
-          let type = command.type ? command.type.toLowerCase() : "misc";
-
-          cmnd.push({ cmd, type });
-
-          if (!category.includes(type)) category.push(type);
+      plugins.commands.forEach((command) => {
+        if (command.pattern instanceof RegExp && !command.dontAddCommandList) {
+          const cmd = command.pattern.toString().split(/\W+/)[1];
+          const type = command.type ? command.type.toLowerCase() : "misc";
+          if (!categories[type]) categories[type] = [];
+          categories[type].push(cmd.trim());
         }
       });
 
-      cmnd.sort();
-      category.sort().forEach((cmmd) => {
-        menu += `\n✦ *${cmmd.toUpperCase()}*\n`;
-        let comad = cmnd.filter(({ type }) => type == cmmd);
-        comad.forEach(({ cmd }) => {
-          menu += `  ➤ ${cmd.trim()}\n`;
+      Object.keys(categories).sort().forEach((category) => {
+        menu += `\n✦ *${category.toUpperCase()}*\n`;
+        categories[category].sort().forEach((cmd) => {
+          menu += `  ➤ ${cmd}\n`;
         });
       });
 
-      // Send menu with a button for the channel link
-      const buttons = [
-        {
-          buttonId: 'channel',
-          buttonText: { displayText: '📢 Join Our Channel' },
-          type: 1,
-        }
-      ];
-
-      const buttonMessage = {
-        image: { url: "https://i.imgur.com/QfDM014.jpeg" }, // Image URL
-        caption: menu,
-        footer: 'Stay updated with Queen Alya!',
-        buttons: buttons,
-        headerType: 4,
-      };
-
-      await message.sendMessage(message.jid, buttonMessage);
+      // Send image with the menu as caption
+      const imageUrl = "https://i.imgur.com/QfDM014.jpeg"; // Image URL
+      await message.sendMessage(message.jid, { image: { url: imageUrl }, caption: menu });
     }
   }
 );
