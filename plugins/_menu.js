@@ -107,8 +107,8 @@ Description: ${i.desc}\`\`\``);
 
       // Send image with the menu as caption
       const imageUrl = "https://i.imgur.com/QfDM014.jpeg"; // Image URL
-      await message.sendMessage(message.jid, { image: { url: imageUrl }, caption: menu });
-    }
+      await message.sendMessage(message.jid, imageUrl, { caption: menu }, "image");
+    }   
   }
 );
 command(
