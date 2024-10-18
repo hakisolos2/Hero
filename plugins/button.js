@@ -115,7 +115,7 @@ function runtime(seconds) {
 
 command(
   {
-    pattern: "menu",
+    pattern: "menu2",
     fromMe: isPrivate,
     desc: "send a button message menu",
     usage: ".button",

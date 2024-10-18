@@ -60,70 +60,7 @@ command(
 );
 command(
   {
-    pattern: "list",
-    fromMe: isPrivate,
-    desc: "Show All Commands",
-    dontAddCommandList: true,
-    type: "user",
-  },
-  async (message, match) => {
-   
-    if (match) {
-      for (let i of plugins.commands) {
-        if (
-          i.pattern instanceof RegExp &&
-          i.pattern.test(message.prefix + match)
-        ) {
-          const cmdName = i.pattern.toString().split(/\W+/)[1];
-          message.reply(`\`\`\`Command: ${message.prefix}${cmdName.trim()}
-Description: ${i.desc}\`\`\``);
-        }
-      }
-    } else {
-      let { prefix } = message;
-      let [date, time] = new Date()
-        .toLocaleString("en-IN", { timeZone: "Africa/Lagos" })
-        .split(",");
-      let menu = `
-     ☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬
-   *BY : Tᴀɪʀᴀ Mᴀᴋɪɴᴏ*
- ${readmore}
-      `;
-      let cmnd = [];
-      let cmd;
-      let category = [];
-      plugins.commands.map((command, num) => {
-        if (command.pattern instanceof RegExp) {
-          cmd = command.pattern.toString().split(/\W+/)[1];
-        }
-
-        if (!command.dontAddCommandList && cmd !== undefined) {
-          let type = command.type ? command.type.toLowerCase() : "misc";
-
-          cmnd.push({ cmd, type });
-
-          if (!category.includes(type)) category.push(type);
-        }
-      });
-      cmnd.sort();
-      category.sort().forEach((cmmd) => {
-        menu += `\n
-╭═══════════════ ⪩
-╰╮╰┈➤ *${cmmd.toUpperCase()}*
-╭═══════════════ ⪩\n`;
-        let comad = cmnd.filter(({ type }) => type == cmmd);
-        comad.forEach(({ cmd }) => {
-          menu += `┃  ${cmd.trim()} \n`;
-        });
-        menu += `╰════════════════ ⪨`;
-      });
-      return await message.sendMessage(message.jid,menu);
-    }
-  }
-);
-command(
-  {
-    pattern: "pist",
+    pattern: "menu",
     fromMe: isPrivate,
     desc: "Show All Commands",
     dontAddCommandList: true,
@@ -147,15 +84,14 @@ Description: ${i.desc}\`\`\``);
         .toLocaleString("en-IN", { timeZone: "Africa/Lagos" })
         .split(",");
 
-      // Stylish menu header
+      // Menu header with shorter lines and style
       let menu = `
-╭─────── 🌟  *QUEEN ALYA* 🌟 ───────╮
-┃  ✦  *BY : STAR KING*  ✦
-┃  ✦  *DATE : ${date}*  ✦
-┃  ✦  *TIME : ${time}*  ✦
-┃  ✦  *TOTAL COMMANDS : ${plugins.commands.length}*  ✦
-╰─────────────────────────────╯
-      `;
+✦✧━━ *QUEEN ALYA* ━━✧✦
+🌟 *BY:* STAR KING
+📅 *DATE:* ${date}
+🕒 *TIME:* ${time}
+🔢 *TOTAL COMMANDS:* ${plugins.commands.length}
+`;
 
       let cmnd = [];
       let cmd;
@@ -177,24 +113,31 @@ Description: ${i.desc}\`\`\``);
 
       cmnd.sort();
       category.sort().forEach((cmmd) => {
-        menu += `
-╭─────────── ⪩  *${cmmd.toUpperCase()}*  ⪨ ───────────╮`;
+        menu += `\n✦ *${cmmd.toUpperCase()}*\n`;
         let comad = cmnd.filter(({ type }) => type == cmmd);
         comad.forEach(({ cmd }) => {
-          menu += `\n┃  ➤ ${cmd.trim()}`;
+          menu += `  ➤ ${cmd.trim()}\n`;
         });
-        menu += `\n╰───────────────────────────╯`;
       });
 
-      // Adding the channel link at the base of the menu
-      menu += `
-╭─────── 📢 Join Our Channel 📢 ───────╮
-┃  👉  https://whatsapp.com/channel/0029VaeW5Tw4yltQOYIO5E2D
-╰─────────────────────────────╯`;
+      // Send menu with a button for the channel link
+      const buttons = [
+        {
+          buttonId: 'channel',
+          buttonText: { displayText: '📢 Join Our Channel' },
+          type: 1,
+        }
+      ];
 
-      // Sending the image along with the menu caption
-      const imageUrl = "https://i.imgur.com/QfDM014.jpeg"; // Image URL
-      await message.sendMessage(message.jid, imageUrl, { caption: menu }, "image");
+      const buttonMessage = {
+        image: { url: "https://i.imgur.com/QfDM014.jpeg" }, // Image URL
+        caption: menu,
+        footer: 'Stay updated with Queen Alya!',
+        buttons: buttons,
+        headerType: 4,
+      };
+
+      await message.sendMessage(message.jid, buttonMessage);
     }
   }
 );
