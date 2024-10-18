@@ -9,7 +9,7 @@ RUN apt-get update && \
   apt-get upgrade -y && \
   rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/anonphoenix007/HOTARO-MD /HOTARO-MD
-WORKDIR /HOTARO-MD
+RUN git clone https://github.com/PhantomkidIII/Hero /PhantomkidIII
+WORKDIR /PhantomkidIII
 RUN npm install
 CMD ["node", "index.js"]
