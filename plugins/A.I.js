@@ -1,11 +1,11 @@
-const command = require("../lib");
+const { command, isPrivate } = require("../lib/");
 const axios = require("axios");
 const fetch = require("node-fetch");
 
 command(
   {
     pattern: "bing",
-    fromMe: true,
+    fromMe: isPrivate,
     desc: "Start a trivia game.",
     type: "ai",
   },
