@@ -146,14 +146,21 @@ Description: ${i.desc}\`\`\``);
       let [date, time] = new Date()
         .toLocaleString("en-IN", { timeZone: "Africa/Lagos" })
         .split(",");
+
+      // Stylish menu header
       let menu = `
-     ☬ ʜᴏᴛᴀʀᴏ-ᴍᴅ ☬
-   *BY : Tᴀɪʀᴀ Mᴀᴋɪɴᴏ*
- ${readmore}
+╭─────── 🌟  *QUEEN ALYA* 🌟 ───────╮
+┃  ✦  *BY : STAR KING*  ✦
+┃  ✦  *DATE : ${date}*  ✦
+┃  ✦  *TIME : ${time}*  ✦
+┃  ✦  *TOTAL COMMANDS : ${plugins.commands.length}*  ✦
+╰─────────────────────────────╯
       `;
+
       let cmnd = [];
       let cmd;
       let category = [];
+
       plugins.commands.map((command) => {
         if (command.pattern instanceof RegExp) {
           cmd = command.pattern.toString().split(/\W+/)[1];
@@ -167,18 +174,23 @@ Description: ${i.desc}\`\`\``);
           if (!category.includes(type)) category.push(type);
         }
       });
+
       cmnd.sort();
       category.sort().forEach((cmmd) => {
-        menu += `\n
-╭═══════════════ ⪩
-╰╮╰┈➤ *${cmmd.toUpperCase()}*
-╭═══════════════ ⪩\n`;
+        menu += `
+╭─────────── ⪩  *${cmmd.toUpperCase()}*  ⪨ ───────────╮`;
         let comad = cmnd.filter(({ type }) => type == cmmd);
         comad.forEach(({ cmd }) => {
-          menu += `┃  ${cmd.trim()} \n`;
+          menu += `\n┃  ➤ ${cmd.trim()}`;
         });
-        menu += `╰════════════════ ⪨`;
+        menu += `\n╰───────────────────────────╯`;
       });
+
+      // Adding the channel link at the base of the menu
+      menu += `
+╭─────── 📢 Join Our Channel 📢 ───────╮
+┃  👉  https://whatsapp.com/channel/0029VaeW5Tw4yltQOYIO5E2D
+╰─────────────────────────────╯`;
 
       // Sending the image along with the menu caption
       const imageUrl = "https://i.imgur.com/QfDM014.jpeg"; // Image URL
