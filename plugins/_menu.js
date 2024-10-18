@@ -80,7 +80,7 @@ Description: ${i.desc}\`\`\``);
       
       // Stylish menu header
       let menu = `
-✦✧━━ *QUEEN ALYA* ━━✧✦
+✦✧━━ *NEXUS-BOT* ━━✧✦
 🌟 *BY:* STAR KING
 📅 *DATE:* ${date}
 🕒 *TIME:* ${time}
@@ -106,7 +106,7 @@ Description: ${i.desc}\`\`\``);
       });
 
       // Send image with the menu as caption
-      const imageUrl = "https://i.imgur.com/QfDM014.jpeg"; // Image URL
+      const imageUrl = "https://i.imgur.com/4mLOG7q.jpeg"; // Image URL
       await message.sendMessage(message.jid, imageUrl, { caption: menu }, "image");
     }   
   }
